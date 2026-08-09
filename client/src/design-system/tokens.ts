@@ -73,6 +73,24 @@ export const colorTokens = {
     border: '#E5E7EB',
     borderVariant: '#D1D5DB',
     divider: '#E5E7EB',
+    primaryContainer: '#E8F5E9',
+    onPrimary: '#FFFFFF',
+    onPrimaryContainer: '#1B5E20',
+    secondaryContainer: '#F1F8E9',
+    onSecondary: '#FFFFFF',
+    onSecondaryContainer: '#33691E',
+    tertiaryContainer: '#FFF3E0',
+    onTertiary: '#FFFFFF',
+    onTertiaryContainer: '#E65100',
+    surfaceDim: '#F0F0F0',
+    surfaceBright: '#FFFFFF',
+    onSurface: '#1F2937',
+    onSurfaceVariant: '#6B7280',
+    outline: '#9CA3AF',
+    outlineVariant: '#D1D5DB',
+    mapSurface: '#F0FBFE',
+    activeIndicator: '#7FFC97',
+    scrim: 'rgba(0, 0, 0, 0.4)',
 
     // Semantic
     muted: '#9CA3AF',
@@ -145,6 +163,24 @@ export const colorTokens = {
     border: '#4B5563',
     borderVariant: '#6B7280',
     divider: '#4B5563',
+    primaryContainer: '#1B5E20',
+    onPrimary: '#FFFFFF',
+    onPrimaryContainer: '#C8E6C9',
+    secondaryContainer: '#33691E',
+    onSecondary: '#FFFFFF',
+    onSecondaryContainer: '#F1F8E9',
+    tertiaryContainer: '#E65100',
+    onTertiary: '#FFFFFF',
+    onTertiaryContainer: '#FFF3E0',
+    surfaceDim: '#111827',
+    surfaceBright: '#3A3F47',
+    onSurface: '#F3F4F6',
+    onSurfaceVariant: '#9CA3AF',
+    outline: '#9CA3AF',
+    outlineVariant: '#4B5563',
+    mapSurface: '#1A2332',
+    activeIndicator: '#7FFC97',
+    scrim: 'rgba(0, 0, 0, 0.6)',
 
     // Semantic
     muted: '#9CA3AF',
@@ -166,9 +202,9 @@ export const colorTokens = {
 export const typographyTokens = {
   // Font Families
   fontFamily: {
-    sans: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    sans: '"Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    serif: '"Libre Caslon Text", Georgia, "Times New Roman", serif',
     mono: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
-    serif: 'Georgia, "Times New Roman", serif',
   },
 
   // Font Sizes
