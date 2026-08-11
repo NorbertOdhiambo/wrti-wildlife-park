@@ -1,0 +1,341 @@
+/**
+ * WRTI About Page Styles
+ *
+ * These page-local rules mirror the exact visual vocabulary from the Stitch
+ * About HTML while avoiding global token changes that could affect approved
+ * screens. The corrupted Stitch screenshot is not used for styling decisions.
+ */
+
+.about-page {
+  --about-background: #f0fbfe;
+  --about-surface: #f0fbfe;
+  --about-surface-low: #ebf6f8;
+  --about-surface-lowest: #ffffff;
+  --about-surface-container: #e5f0f2;
+  --about-surface-high: #dfeaed;
+  --about-primary: #006b2c;
+  --about-primary-container: #2a8542;
+  --about-primary-fixed: #9cf7a7;
+  --about-secondary: #1a6c3b;
+  --about-secondary-container: #a4f5b6;
+  --about-tertiary: #496156;
+  --about-tertiary-container: #617a6e;
+  --about-on-surface: #131d1f;
+  --about-on-surface-variant: #3e4a3d;
+  --about-on-primary: #ffffff;
+  --about-on-primary-container: #f7fff2;
+  --about-on-tertiary: #ffffff;
+  --about-on-tertiary-container: #f5fff8;
+  --about-outline-variant: #bdcaba;
+  min-height: 100%;
+  overflow-x: hidden;
+  background: var(--about-background);
+  color: var(--about-on-surface);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.about-page__main {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.about-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  height: 530px;
+  padding: 0 20px 64px;
+  overflow: hidden;
+  border-radius: 0 0 24px 24px;
+}
+
+.about-hero__image,
+.about-hero__overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.about-hero__image {
+  z-index: 0;
+  background-color: #6f8f78;
+  background-position: center;
+  background-size: cover;
+}
+
+.about-hero__overlay {
+  z-index: 1;
+  background: linear-gradient(to top, var(--about-background), rgba(5, 109, 46, 0.2), transparent);
+}
+
+.about-hero__panel {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 768px;
+  padding: 32px;
+  border: 1px solid color-mix(in srgb, var(--about-outline-variant) 30%, transparent);
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--about-surface-lowest) 40%, transparent);
+  box-shadow: 0 20px 40px rgba(19, 29, 31, 0.12);
+  backdrop-filter: blur(12px);
+  text-align: center;
+}
+
+.about-eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--about-primary-fixed);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.about-eyebrow--primary {
+  color: var(--about-primary);
+}
+
+.about-display {
+  margin: 0 0 16px;
+  color: var(--about-on-surface);
+  font-family: 'Libre Caslon Text', serif;
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 56px;
+}
+
+.about-body-lg,
+.about-body {
+  margin: 0;
+  color: var(--about-on-surface-variant);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.about-body-lg {
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.about-body--on-dark {
+  color: color-mix(in srgb, var(--about-on-tertiary-container) 80%, transparent);
+}
+
+.about-pillars {
+  margin-top: 16px;
+  padding: 64px 20px;
+}
+
+.about-bento {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.about-pillar {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow: 0 6px 18px rgba(19, 29, 31, 0.08);
+}
+
+.about-pillar--technology,
+.about-pillar--heritage {
+  border: 1px solid color-mix(in srgb, var(--about-outline-variant) 30%, transparent);
+  background: var(--about-surface-lowest);
+}
+
+.about-pillar--technology {
+  padding: 32px;
+}
+
+.about-pillar__glow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 256px;
+  height: 256px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--about-secondary-container) 30%, transparent);
+  filter: blur(48px);
+  transform: translate(25%, -50%);
+}
+
+.about-pillar__content {
+  position: relative;
+  z-index: 1;
+}
+
+.about-pillar--botanical {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 264px;
+  padding: 32px;
+  background: var(--about-tertiary-container);
+}
+
+.about-pillar--heritage {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 32px;
+}
+
+.about-icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+}
+
+.about-icon-circle--primary {
+  color: var(--about-on-primary-container);
+  background: var(--about-primary-container);
+}
+
+.about-icon-circle--tertiary {
+  color: var(--about-on-tertiary);
+  background: var(--about-tertiary);
+}
+
+.about-headline {
+  margin: 0 0 8px;
+  font-family: 'Libre Caslon Text', serif;
+  font-weight: 600;
+}
+
+.about-headline--large {
+  color: var(--about-on-surface);
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.about-headline--medium {
+  color: var(--about-on-tertiary-container);
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.about-pillar--botanical .about-body {
+  margin-top: 16px;
+}
+
+.about-heritage__copy {
+  flex: 1;
+}
+
+.about-heritage__copy .about-body {
+  margin-bottom: 16px;
+}
+
+.about-primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--about-primary);
+  color: var(--about-on-primary);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background-color 180ms cubic-bezier(0.23, 1, 0.32, 1), transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.about-primary-button:hover {
+  background: var(--about-secondary);
+}
+
+.about-primary-button:active {
+  transform: scale(0.97);
+}
+
+.about-primary-button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--about-primary-fixed) 70%, white);
+  outline-offset: 3px;
+}
+
+.about-heritage__image-wrap {
+  flex: 1;
+  width: 100%;
+  height: 256px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--about-surface-container);
+  box-shadow: inset 0 0 18px rgba(19, 29, 31, 0.08);
+}
+
+.about-heritage__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .about-hero {
+    height: 618px;
+    margin-top: 16px;
+    padding: 0 64px 64px;
+    border-radius: 24px;
+  }
+
+  .about-pillars {
+    padding: 64px;
+  }
+
+  .about-bento {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .about-pillar--technology {
+    grid-column: span 8;
+  }
+
+  .about-pillar--botanical {
+    grid-column: span 4;
+  }
+
+  .about-pillar--heritage {
+    grid-column: span 12;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .about-heritage__image-wrap {
+    height: 320px;
+  }
+}
+
+@media (max-width: 767px) {
+  .about-display {
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .about-headline--large {
+    font-size: 28px;
+    line-height: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-primary-button {
+    transition: none;
+  }
+}

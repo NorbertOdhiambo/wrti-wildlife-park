@@ -23,6 +23,7 @@ import NotFound from '@/pages/NotFound';
 import Landing from '@/pages/Landing';
 import TicketSelection from '@/pages/TicketSelection';
 import PaymentSuccess from '@/pages/PaymentSuccess';
+import About from '@/pages/About';
 
 // Placeholder page components (to be implemented in future phases)
 const MapPage = () => <div>Map Page - Coming Soon</div>;
@@ -31,7 +32,6 @@ const ProfilePage = () => <div>Profile - Coming Soon</div>;
 const SettingsPage = () => <div>Settings - Coming Soon</div>;
 const HelpPage = () => <div>Help - Coming Soon</div>;
 const OfflineManagementPage = () => <div>Offline Management - Coming Soon</div>;
-const AboutPage = () => <div>About WRTI - Coming Soon</div>;
 const CheckoutPage = () => <div>Checkout - Coming Soon</div>;
 
 /**
@@ -77,7 +77,7 @@ export const routes: RouteObject[] = [
       },
       {
         path: 'about',
-        element: <AboutPage />,
+        element: <About />,
       },
       {
         path: 'checkout',
