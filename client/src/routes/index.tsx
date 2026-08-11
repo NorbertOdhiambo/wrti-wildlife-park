@@ -22,6 +22,7 @@ import RootLayout from '@/layouts/RootLayout';
 import NotFound from '@/pages/NotFound';
 import Landing from '@/pages/Landing';
 import TicketSelection from '@/pages/TicketSelection';
+import PaymentSuccess from '@/pages/PaymentSuccess';
 
 // Placeholder page components (to be implemented in future phases)
 const MapPage = () => <div>Map Page - Coming Soon</div>;
@@ -81,6 +82,10 @@ export const routes: RouteObject[] = [
       {
         path: 'checkout',
         element: <CheckoutPage />,
+      },
+      {
+        path: 'payment-success',
+        element: <PaymentSuccess />,
       },
       {
         path: '*',
