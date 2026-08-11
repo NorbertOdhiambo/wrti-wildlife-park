@@ -18,7 +18,7 @@
  */
 
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
-import RootLayout from '@/layouts/RootLayout';
+import RootLayout, { WRTIRouteHandle } from '@/layouts/RootLayout';
 import NotFound from '@/pages/NotFound';
 import Landing from '@/pages/Landing';
 import TicketSelection from '@/pages/TicketSelection';
@@ -46,50 +46,62 @@ export const routes: RouteObject[] = [
       {
         index: true,
         element: <Landing />,
+        handle: { shell: { activeNav: undefined } } satisfies WRTIRouteHandle,
       },
       {
         path: 'map',
         element: <MapPage />,
+        handle: { shell: { header: 'map', activeNav: 'map' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'discovery',
         element: <DiscoveryPage />,
+        handle: { shell: { activeNav: 'discovery' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'tickets',
         element: <TicketSelection />,
+        handle: { shell: { header: 'detail', activeNav: 'tickets' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'profile',
         element: <ProfilePage />,
+        handle: { shell: { activeNav: 'profile' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'settings',
         element: <SettingsPage />,
+        handle: { shell: { header: 'detail', activeNav: 'profile', title: 'Settings' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'help',
         element: <HelpPage />,
+        handle: { shell: { header: 'detail', title: 'Help' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'offline',
         element: <OfflineManagementPage />,
+        handle: { shell: { header: 'detail', title: 'Offline Management' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'about',
         element: <About />,
+        handle: { shell: { header: 'app' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'checkout',
         element: <CheckoutPage />,
+        handle: { shell: { header: 'detail', activeNav: 'tickets', title: 'Checkout' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'payment-success',
         element: <PaymentSuccess />,
+        handle: { shell: { header: 'hidden', bottomNavigation: 'hidden' } } satisfies WRTIRouteHandle,
       },
       {
         path: '*',
         element: <NotFound />,
+        handle: { shell: { header: 'hidden', bottomNavigation: 'hidden' } } satisfies WRTIRouteHandle,
       },
     ],
   },

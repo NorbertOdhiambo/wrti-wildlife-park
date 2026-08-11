@@ -1,5 +1,16 @@
 # About WRTI Wildlife Park — Implementation Checklist
 
+## Global Application Shell Correction
+
+- [x] Inspect the current router, RootLayout, Header, Bottom Navigation, and page-level shell usage.
+- [x] Define a shared route-level shell configuration with default-on Header and Bottom Navigation.
+- [x] Configure explicit documented opt-outs for transactional or immersive routes only where required.
+- [x] Move global shell rendering to the shared application layout without changing page bodies.
+- [x] Remove duplicate Header and Bottom Navigation implementations from individual pages.
+- [x] Validate all visitor-facing routes for consistent shell behavior and correct active navigation state.
+- [x] Validate responsive behavior, accessibility, TypeScript, and production build health.
+- [x] Document the shell architecture and save a final checkpoint.
+
 - [x] Inspect the complete `about_wrti_wildlife_park` Stitch HTML and identify its exact source filename.
 - [x] Extract the About page body structure, exact copy, colors, typography, assets, responsive rules, and motion.
 - [x] Ignore the corrupted About screenshot and omit the Stitch global header/navigation from the page body.

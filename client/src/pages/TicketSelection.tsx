@@ -20,8 +20,6 @@
 
 import { useState } from 'react';
 import { useLocation } from 'wouter';
-import { DetailHeader } from '@/design-system/components/Headers';
-import { BottomNavigation } from '@/design-system/components/BottomNavigation';
 
 interface TicketOption {
   id: string;
@@ -67,21 +65,10 @@ export default function TicketSelection() {
     navigate('/checkout');
   };
 
-  const handleBack = () => {
-    navigate('/');
-  };
-
   return (
-    <div className="flex flex-col h-screen" style={{ backgroundColor: '#f0fbfe' }}>
-      {/* Detail Header */}
-      <DetailHeader
-        title="WRTI Wildlife Park"
-        onBack={handleBack}
-        showBackButton
-      />
-
+    <div className="min-h-full" style={{ backgroundColor: '#f0fbfe' }}>
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="overflow-y-auto">
         {/* Page Title Section - Centered */}
         <div className="px-4 sm:px-6 py-8 sm:py-12 max-w-2xl mx-auto text-center">
           <h1
@@ -240,32 +227,6 @@ export default function TicketSelection() {
         <div className="h-20" />
       </div>
 
-      {/* Bottom Navigation */}
-      <BottomNavigation
-        items={[
-          { id: 'map', label: 'Map', icon: 'map' },
-          { id: 'discovery', label: 'Discovery', icon: 'compass' },
-          { id: 'tickets', label: 'Tickets', icon: 'ticket' },
-          { id: 'profile', label: 'Profile', icon: 'user' },
-        ]}
-        activeId="tickets"
-        onNavigate={(id: string) => {
-          switch (id) {
-            case 'map':
-              navigate('/map');
-              break;
-            case 'discovery':
-              navigate('/discovery');
-              break;
-            case 'tickets':
-              navigate('/tickets');
-              break;
-            case 'profile':
-              navigate('/profile');
-              break;
-          }
-        }}
-      />
     </div>
   );
 }

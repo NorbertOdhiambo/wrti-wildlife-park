@@ -10,8 +10,6 @@
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { AppHeader } from '@/design-system/components/Headers';
-import { BottomNavigation } from '@/design-system/components/BottomNavigation';
 import { useLocation } from 'wouter';
 
 export default function Landing() {
@@ -30,12 +28,9 @@ export default function Landing() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-background">
-      {/* App Header */}
-      <AppHeader title="WRTI Wildlife Park" />
-
+    <div className="min-h-full bg-background">
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-border scrollbar-track-background">
+      <div className="overflow-y-auto scrollbar-thin scrollbar-thumb-border scrollbar-track-background">
         {/* Hero Section */}
         <section
           className="relative w-full h-96 bg-cover bg-center flex items-end justify-center px-4 py-8"
@@ -199,32 +194,6 @@ export default function Landing() {
         <div className="h-20" />
       </div>
 
-      {/* Bottom Navigation */}
-      <BottomNavigation
-        items={[
-          { id: 'map', label: 'Map', icon: 'map' },
-          { id: 'discovery', label: 'Discovery', icon: 'compass' },
-          { id: 'tickets', label: 'Tickets', icon: 'ticket' },
-          { id: 'profile', label: 'Profile', icon: 'user' },
-        ]}
-        activeId="discovery"
-        onNavigate={(id: string) => {
-          switch (id) {
-            case 'map':
-              navigate('/map');
-              break;
-            case 'discovery':
-              navigate('/discovery');
-              break;
-            case 'tickets':
-              navigate('/tickets');
-              break;
-            case 'profile':
-              navigate('/profile');
-              break;
-          }
-        }}
-      />
     </div>
   );
 }

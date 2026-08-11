@@ -33,7 +33,7 @@ export interface NavItem {
 
 export interface BottomNavigationProps {
   items: NavItem[];
-  activeId: string;
+  activeId?: string;
   onNavigate?: (id: string) => void;
   className?: string;
   showLabels?: boolean;
@@ -80,7 +80,7 @@ export function BottomNavigation({
     >
       <div className="flex items-center justify-around h-16 sm:h-20">
         {items.map((item) => {
-          const isActive = item.id === activeId;
+          const isActive = Boolean(activeId) && item.id === activeId;
           const handleClick = () => {
             if (!item.disabled && onNavigate) {
               onNavigate(item.id);
