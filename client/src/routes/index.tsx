@@ -24,13 +24,13 @@ import Landing from '@/pages/Landing';
 import TicketSelection from '@/pages/TicketSelection';
 import PaymentSuccess from '@/pages/PaymentSuccess';
 import About from '@/pages/About';
+import SupportFAQ from '@/pages/SupportFAQ';
 
 // Placeholder page components (to be implemented in future phases)
 const MapPage = () => <div>Map Page - Coming Soon</div>;
 const DiscoveryPage = () => <div>Discovery Journal - Coming Soon</div>;
 const ProfilePage = () => <div>Profile - Coming Soon</div>;
 const SettingsPage = () => <div>Settings - Coming Soon</div>;
-const HelpPage = () => <div>Help - Coming Soon</div>;
 const OfflineManagementPage = () => <div>Offline Management - Coming Soon</div>;
 const CheckoutPage = () => <div>Checkout - Coming Soon</div>;
 
@@ -75,8 +75,8 @@ export const routes: RouteObject[] = [
       },
       {
         path: 'help',
-        element: <HelpPage />,
-        handle: { shell: { header: 'detail', title: 'Help' } } satisfies WRTIRouteHandle,
+        element: <SupportFAQ />,
+        handle: { shell: { header: 'detail', title: 'Support & FAQ' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'offline',

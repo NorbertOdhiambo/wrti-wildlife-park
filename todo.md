@@ -1,5 +1,16 @@
 # About WRTI Wildlife Park — Implementation Checklist
 
+## Support & FAQ Screen
+
+- [x] Inspect the complete `support_faq` Stitch HTML, styles, assets, icons, and interactions.
+- [x] Extract exact Support & FAQ content, visual tokens, responsive rules, and motion behavior.
+- [x] Implement the Support & FAQ page body without duplicating the global shell.
+- [x] Implement source-defined FAQ search, category/filter behavior, accordions, contact actions, and empty states.
+- [x] Add the Support route with the default global Header and Bottom Navigation unless an explicit exception is found.
+- [x] Validate responsive behavior, keyboard accessibility, focus states, and reduced motion.
+- [x] Run TypeScript/build checks and compare the React route against the authoritative HTML.
+- [x] Document implementation notes and save a checkpoint.
+
 ## Global Application Shell Correction
 
 - [x] Inspect the current router, RootLayout, Header, Bottom Navigation, and page-level shell usage.
