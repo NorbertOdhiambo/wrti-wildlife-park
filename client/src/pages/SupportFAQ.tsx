@@ -8,6 +8,7 @@
  */
 
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Icon } from '@/design-system/icons';
 import './SupportFAQ.css';
 
@@ -207,10 +208,10 @@ export default function SupportFAQ() {
             <Icon name="support_agent" size={48} className="support-faq-contact-icon" aria-label="" />
             <h2 id="support-contact-title">Still need help?</h2>
             <p>Our park rangers and support team are available from 8 AM to 6 PM daily to assist you with any inquiries.</p>
-            <button type="button" className="support-faq-contact-button">
+            <Link to="/contact" className="support-faq-contact-button">
               <Icon name="chat" size={20} aria-label="" />
               <span>Contact Support</span>
-            </button>
+            </Link>
           </div>
         </section>
       </main>

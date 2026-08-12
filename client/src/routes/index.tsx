@@ -25,6 +25,7 @@ import TicketSelection from '@/pages/TicketSelection';
 import PaymentSuccess from '@/pages/PaymentSuccess';
 import About from '@/pages/About';
 import SupportFAQ from '@/pages/SupportFAQ';
+import ContactSupport from '@/pages/ContactSupport';
 
 // Placeholder page components (to be implemented in future phases)
 const MapPage = () => <div>Map Page - Coming Soon</div>;
@@ -77,6 +78,11 @@ export const routes: RouteObject[] = [
         path: 'help',
         element: <SupportFAQ />,
         handle: { shell: { header: 'detail', title: 'Support & FAQ' } } satisfies WRTIRouteHandle,
+      },
+      {
+        path: 'contact',
+        element: <ContactSupport />,
+        handle: { shell: { header: 'detail', title: 'Contact Support' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'offline',

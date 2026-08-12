@@ -11,6 +11,17 @@
 - [x] Run TypeScript/build checks and compare the React route against the authoritative HTML.
 - [x] Document implementation notes and save a checkpoint.
 
+## Contact Support Screen
+
+- [x] Inspect the complete `contact_support` Stitch HTML, assets, icons, and interactions.
+- [x] Extract exact Contact Support content, visual tokens, responsive rules, form states, and motion behavior.
+- [x] Implement the Contact Support page body without duplicating the global shell.
+- [x] Implement frontend-only form interaction, validation, loading, error, and non-fabricated submission states.
+- [x] Add the Contact Support route and connect it from Support & FAQ where appropriate.
+- [x] Validate responsive behavior, keyboard accessibility, focus states, and reduced motion.
+- [x] Run TypeScript/build checks and compare the React route against the authoritative HTML.
+- [x] Document implementation notes and save a checkpoint.
+
 ## Global Application Shell Correction
 
 - [x] Inspect the current router, RootLayout, Header, Bottom Navigation, and page-level shell usage.
