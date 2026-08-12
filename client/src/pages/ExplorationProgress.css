@@ -1,0 +1,610 @@
+/**
+ * WRTI Exploration Progress styles.
+ *
+ * The Stitch HTML reference is the ground truth: preserve its green botanical
+ * palette, Libre Caslon/Plus Jakarta pairing, card geometry, bento order, and
+ * mobile-first timeline composition. This stylesheet is intentionally local so
+ * the new screen cannot alter previously approved routes.
+ */
+
+.exploration-progress-page {
+  --ep-background: #f0fbfe;
+  --ep-surface-low: #ebf6f8;
+  --ep-surface-lowest: #ffffff;
+  --ep-surface-high: #dfeaed;
+  --ep-surface-container: #e5f0f2;
+  --ep-primary: #006b2c;
+  --ep-primary-container: #2a8542;
+  --ep-secondary: #1a6c3b;
+  --ep-secondary-container: #a4f5b6;
+  --ep-on-secondary-container: #227240;
+  --ep-tertiary: #496156;
+  --ep-on-surface: #131d1f;
+  --ep-on-surface-variant: #3e4a3d;
+  --ep-outline: #6e7b6c;
+  --ep-outline-variant: #bdcaba;
+  --ep-inverse-surface: #283234;
+  min-height: 100%;
+  overflow-x: hidden;
+  padding: 32px 20px 100px;
+  background: var(--ep-background);
+  color: var(--ep-on-surface);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.exploration-progress__canvas {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.exploration-progress__summary {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ep-outline-variant) 30%, transparent);
+  border-radius: 12px;
+  background: var(--ep-surface-lowest);
+  box-shadow: 0 4px 10px rgba(19, 29, 31, 0.08);
+}
+
+.exploration-progress__summary-glow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 256px;
+  height: 256px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ep-primary) 5%, transparent);
+  filter: blur(48px);
+  pointer-events: none;
+  transform: translate(25%, -50%);
+}
+
+.exploration-progress__summary-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 32px;
+}
+
+.exploration-progress__milestone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 128px;
+  height: 128px;
+  border: 4px solid var(--ep-surface-lowest);
+  border-radius: 50%;
+  background: var(--ep-surface-high);
+  color: var(--ep-primary);
+  box-shadow: 0 2px 5px rgba(19, 29, 31, 0.1);
+}
+
+.exploration-progress__milestone-ring {
+  position: absolute;
+  inset: -4px;
+  border: 4px solid var(--ep-primary);
+  border-radius: 50%;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 50%, 0 80%);
+}
+
+.exploration-progress__summary-copy {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.exploration-progress__level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--ep-secondary-container);
+  color: var(--ep-on-secondary-container);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.exploration-progress__summary-copy h1,
+.exploration-progress__section-heading h2,
+.exploration-progress__timeline h2 {
+  margin: 0;
+  font-family: 'Libre Caslon Text', serif;
+  font-weight: 600;
+}
+
+.exploration-progress__summary-copy h1 {
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.exploration-progress__summary-copy p {
+  max-width: 640px;
+  margin: 8px 0 0;
+  color: var(--ep-on-surface-variant);
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.exploration-progress__total {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+.exploration-progress__total-value {
+  color: var(--ep-primary);
+  font-family: 'Libre Caslon Text', serif;
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 56px;
+}
+
+.exploration-progress__total-label {
+  color: var(--ep-on-surface-variant);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+
+.exploration-progress__bento {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: start;
+  margin-top: 64px;
+}
+
+.exploration-progress__left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  min-width: 0;
+}
+
+.exploration-progress__section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.exploration-progress__section-heading h2,
+.exploration-progress__timeline h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ep-on-surface);
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.exploration-progress__section-heading h2 span,
+.exploration-progress__timeline h2 span {
+  display: inline-flex;
+  color: var(--ep-tertiary);
+}
+
+.exploration-progress__section-heading button {
+  border: 0;
+  background: transparent;
+  color: var(--ep-primary);
+  font: 600 14px/20px 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: color 180ms cubic-bezier(0.23, 1, 0.32, 1), transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.exploration-progress__section-heading button:hover {
+  color: var(--ep-primary-container);
+}
+
+.exploration-progress__section-heading button:active,
+.exploration-progress__favorite-button:active {
+  transform: scale(0.97);
+}
+
+.exploration-progress__section-heading button:focus-visible,
+.exploration-progress__favorite-button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--ep-secondary-container) 80%, white);
+  outline-offset: 3px;
+}
+
+.exploration-progress__zones,
+.exploration-progress__flora-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.exploration-progress__zone-card {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--ep-outline-variant) 30%, transparent);
+  border-radius: 12px;
+  background: var(--ep-surface-lowest);
+  box-shadow: 0 2px 5px rgba(19, 29, 31, 0.06);
+  transition: box-shadow 180ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.exploration-progress__zone-card:hover {
+  box-shadow: 0 5px 12px rgba(19, 29, 31, 0.1);
+}
+
+.exploration-progress__zone-card--locked {
+  opacity: 0.6;
+}
+
+.exploration-progress__zone-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.exploration-progress__zone-copy,
+.exploration-progress__zone-name-row {
+  min-width: 0;
+}
+
+.exploration-progress__zone-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.exploration-progress__zone-name-row h4,
+.exploration-progress__flora-copy h4,
+.exploration-progress__timeline-card h4 {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.exploration-progress__zone-name-row h4,
+.exploration-progress__timeline-card h4 {
+  color: var(--ep-on-surface);
+}
+
+.exploration-progress__zone-lock {
+  display: inline-flex;
+  color: var(--ep-on-surface-variant);
+}
+
+.exploration-progress__zone-copy > span {
+  display: block;
+  margin-top: 2px;
+  color: var(--ep-on-surface-variant);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.exploration-progress__zone-value {
+  flex: 0 0 auto;
+  color: var(--ep-primary);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 20px;
+}
+
+.exploration-progress__zone-card:nth-child(2) .exploration-progress__zone-value {
+  color: var(--ep-secondary);
+}
+
+.exploration-progress__zone-card:nth-child(3) .exploration-progress__zone-value {
+  color: var(--ep-primary-container);
+}
+
+.exploration-progress__zone-card--locked .exploration-progress__zone-value {
+  color: var(--ep-on-surface-variant);
+}
+
+.exploration-progress__zone-track {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--ep-surface-high);
+}
+
+.exploration-progress__zone-bar {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 1000ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.exploration-progress__bar--primary {
+  background: var(--ep-primary);
+}
+
+.exploration-progress__bar--secondary {
+  background: var(--ep-secondary);
+}
+
+.exploration-progress__bar--primary-container {
+  background: var(--ep-primary-container);
+}
+
+.exploration-progress__bar--outline {
+  background: var(--ep-outline);
+}
+
+.exploration-progress__flora-card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  border-radius: 12px;
+  background: var(--ep-inverse-surface);
+  box-shadow: 0 2px 5px rgba(19, 29, 31, 0.08);
+  cursor: pointer;
+}
+
+.exploration-progress__flora-image,
+.exploration-progress__flora-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.exploration-progress__flora-image {
+  background-position: center;
+  background-size: cover;
+  transition: transform 700ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.exploration-progress__flora-card:hover .exploration-progress__flora-image {
+  transform: scale(1.05);
+}
+
+.exploration-progress__flora-overlay {
+  background: linear-gradient(to top, color-mix(in srgb, var(--ep-inverse-surface) 90%, transparent), color-mix(in srgb, var(--ep-inverse-surface) 30%, transparent) 55%, transparent);
+}
+
+.exploration-progress__favorite-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: white;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.28));
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.exploration-progress__flora-copy {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 16px;
+  color: white;
+}
+
+.exploration-progress__flora-copy > span {
+  display: inline-block;
+  margin-bottom: 4px;
+  padding: 2px 8px;
+  border: 1px solid color-mix(in srgb, var(--ep-secondary) 30%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ep-secondary) 20%, transparent);
+  backdrop-filter: blur(4px);
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.exploration-progress__flora-copy h4 {
+  color: white;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.28));
+}
+
+.exploration-progress__timeline {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--ep-outline-variant) 20%, transparent);
+  border-radius: 12px;
+  background: var(--ep-surface-low);
+  box-shadow: 0 2px 5px rgba(19, 29, 31, 0.06);
+}
+
+.exploration-progress__timeline h2 {
+  margin-bottom: 16px;
+}
+
+.exploration-progress__timeline h2 span {
+  color: var(--ep-secondary);
+}
+
+.exploration-progress__timeline-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 600px;
+  padding-right: 8px;
+  overflow-y: auto;
+}
+
+.exploration-progress__timeline-list::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 19px;
+  width: 2px;
+  background: color-mix(in srgb, var(--ep-outline-variant) 30%, transparent);
+  content: '';
+}
+
+.exploration-progress__timeline-item {
+  position: relative;
+  min-height: 40px;
+  padding-left: 48px;
+}
+
+.exploration-progress__timeline-marker {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--ep-outline-variant);
+  border-radius: 50%;
+  background: var(--ep-surface-lowest);
+  color: var(--ep-outline);
+  box-shadow: 0 2px 5px rgba(19, 29, 31, 0.06);
+}
+
+.exploration-progress__timeline-marker--primary {
+  border-color: var(--ep-primary);
+  color: var(--ep-primary);
+}
+
+.exploration-progress__timeline-marker--outline {
+  color: var(--ep-outline);
+}
+
+.exploration-progress__timeline-marker--tertiary {
+  color: var(--ep-tertiary);
+}
+
+.exploration-progress__timeline-marker--image {
+  overflow: hidden;
+  padding: 2px;
+}
+
+.exploration-progress__timeline-marker--image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.exploration-progress__timeline-card {
+  padding: 12px;
+  border: 1px solid color-mix(in srgb, var(--ep-outline-variant) 20%, transparent);
+  border-radius: 8px;
+  background: var(--ep-surface-lowest);
+  box-shadow: 0 2px 5px rgba(19, 29, 31, 0.05);
+}
+
+.exploration-progress__timeline-time {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ep-on-surface-variant);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.exploration-progress__timeline-card p {
+  display: -webkit-box;
+  margin: 4px 0 0;
+  overflow: hidden;
+  color: var(--ep-on-surface-variant);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.exploration-progress-page .material-symbols-outlined.fill,
+.exploration-progress-page .material-symbols-outlined.fill-icon {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.exploration-progress-page .material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+@media (min-width: 768px) {
+  .exploration-progress-page {
+    padding-right: 64px;
+    padding-left: 64px;
+  }
+
+  .exploration-progress__summary-content {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .exploration-progress__summary-copy {
+    text-align: left;
+  }
+
+  .exploration-progress__summary-copy h1 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .exploration-progress__total {
+    text-align: right;
+  }
+
+  .exploration-progress__zones {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .exploration-progress__flora-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .exploration-progress__flora-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .exploration-progress__bento {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .exploration-progress__left-column {
+    grid-column: span 8;
+  }
+
+  .exploration-progress__timeline {
+    grid-column: span 4;
+    position: sticky;
+    top: 100px;
+  }
+}
+
+@media (max-width: 767px) {
+  .exploration-progress__flora-card--third {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exploration-progress-page *,
+  .exploration-progress-page *::before,
+  .exploration-progress-page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

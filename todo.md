@@ -43,3 +43,14 @@
 - [x] Validate mobile portrait first, then mobile landscape, tablet, and desktop layouts.
 - [x] Run TypeScript, build, and visual validation checks without modifying completed screens.
 - [x] Document any remaining HTML-to-React differences and save a final project checkpoint.
+
+## Exploration Progress Screen
+
+- [x] Extract and inspect the complete Exploration Progress Stitch export, screenshot, assets, icons, and interactions.
+- [x] Extract exact Exploration Progress content, visual tokens, responsive rules, and motion behavior.
+- [x] Implement the Exploration Progress page body without duplicating the global shell.
+- [x] Implement only source-defined progress interactions and isolate replaceable screen data.
+- [x] Connect the source-defined View All action to the existing Discovery route without implementing Mapbox.
+- [x] Add the Exploration Progress route with the default global Header and Bottom Navigation.
+- [x] Validate mobile-first responsive behavior, semantic progress indicators, keyboard accessibility, focus states, and reduced motion.
+- [x] Run TypeScript/build checks, compare the React route against the authoritative HTML, document notes, and save a checkpoint.

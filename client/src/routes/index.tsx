@@ -26,6 +26,7 @@ import PaymentSuccess from '@/pages/PaymentSuccess';
 import About from '@/pages/About';
 import SupportFAQ from '@/pages/SupportFAQ';
 import ContactSupport from '@/pages/ContactSupport';
+import ExplorationProgress from '@/pages/ExplorationProgress';
 
 // Placeholder page components (to be implemented in future phases)
 const MapPage = () => <div>Map Page - Coming Soon</div>;
@@ -83,6 +84,11 @@ export const routes: RouteObject[] = [
         path: 'contact',
         element: <ContactSupport />,
         handle: { shell: { header: 'detail', title: 'Contact Support' } } satisfies WRTIRouteHandle,
+      },
+      {
+        path: 'progress',
+        element: <ExplorationProgress />,
+        handle: { shell: { header: 'detail', title: 'Exploration Progress' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'offline',
