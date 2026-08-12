@@ -11,6 +11,10 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import type { OfflineData } from '@/types';
+import {
+  getInitialOfflineDownloadPackages,
+  type OfflineDownloadPackage,
+} from '@/services/offline-downloads';
 
 export interface PendingOperation {
   id: string;
@@ -29,6 +33,11 @@ export interface OfflineState {
   offlineData: OfflineData | null;
   setOfflineData: (data: OfflineData) => void;
   clearOfflineData: () => void;
+
+  // Single-park downloadable package state. The service boundary can replace
+  // this deterministic development data with real storage/Mapbox integration.
+  downloadPackages: OfflineDownloadPackage[];
+  setDownloadPackages: (packages: OfflineDownloadPackage[]) => void;
 
   // Pending operations
   pendingOperations: PendingOperation[];
@@ -61,6 +70,10 @@ export const useOfflineStore = create<OfflineState>()(
         offlineData: null,
         setOfflineData: (data) => set({ offlineData: data }),
         clearOfflineData: () => set({ offlineData: null }),
+
+        // Download packages
+        downloadPackages: getInitialOfflineDownloadPackages(),
+        setDownloadPackages: (packages) => set({ downloadPackages: packages }),
 
         // Pending operations
         pendingOperations: [],
@@ -97,6 +110,7 @@ export const useOfflineStore = create<OfflineState>()(
         name: 'wrti-offline-store',
         partialize: (state) => ({
           offlineData: state.offlineData,
+          downloadPackages: state.downloadPackages,
           pendingOperations: state.pendingOperations,
           lastSyncTime: state.lastSyncTime,
         }),

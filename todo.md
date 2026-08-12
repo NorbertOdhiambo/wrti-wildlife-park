@@ -66,3 +66,14 @@
 - [x] Add the Settings route with the default global Header and Bottom Navigation.
 - [x] Validate mobile-first fidelity, responsive behavior, keyboard accessibility, focus states, contrast, and reduced motion.
 - [x] Run TypeScript/build checks, compare against the authoritative HTML, document notes, and save a checkpoint.
+
+## Offline Downloads Screen
+
+- [x] Locate and inspect the complete Offline Downloads Stitch export, authoritative HTML, assets, corrupted screenshot status, icons, and interactions.
+- [x] Extract exact Offline Downloads content, visual tokens, responsive rules, download states, progress behavior, network treatment, and motion.
+- [x] Reuse or extend the existing Offline architecture with a replaceable single-park package abstraction.
+- [x] Implement the Offline Downloads page body without duplicating the global shell.
+- [x] Implement realistic source-defined download, update, remove, retry, and progress interactions where represented.
+- [x] Add the Offline Downloads route and connect source-defined entry points to it.
+- [x] Validate mobile-first fidelity, responsive behavior, network-aware states, keyboard accessibility, focus states, contrast, and reduced motion.
+- [x] Run TypeScript/build checks, compare against the authoritative HTML, document notes, and save a checkpoint.

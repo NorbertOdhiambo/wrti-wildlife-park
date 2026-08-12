@@ -28,12 +28,12 @@ import SupportFAQ from '@/pages/SupportFAQ';
 import ContactSupport from '@/pages/ContactSupport';
 import ExplorationProgress from '@/pages/ExplorationProgress';
 import SettingsPreferences from '@/pages/SettingsPreferences';
+import OfflineDownloads from '@/pages/OfflineDownloads';
 
 // Placeholder page components (to be implemented in future phases)
 const MapPage = () => <div>Map Page - Coming Soon</div>;
 const DiscoveryPage = () => <div>Discovery Journal - Coming Soon</div>;
 const ProfilePage = () => <div>Profile - Coming Soon</div>;
-const OfflineManagementPage = () => <div>Offline Management - Coming Soon</div>;
 const CheckoutPage = () => <div>Checkout - Coming Soon</div>;
 
 /**
@@ -92,8 +92,8 @@ export const routes: RouteObject[] = [
       },
       {
         path: 'offline',
-        element: <OfflineManagementPage />,
-        handle: { shell: { header: 'detail', title: 'Offline Management' } } satisfies WRTIRouteHandle,
+        element: <OfflineDownloads />,
+        handle: { shell: { header: 'detail', title: 'Offline Downloads' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'about',

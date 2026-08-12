@@ -1,0 +1,522 @@
+/**
+ * Offline Downloads page styling.
+ *
+ * Style reminder: this stylesheet follows the source HTML's pale blue-green
+ * dotted texture, exact WRTI semantic palette, Libre Caslon headings, compact
+ * white cards, and mobile-first grid breakpoints. It does not use the corrupt
+ * screenshot as a design reference.
+ */
+
+.offline-downloads-page {
+  min-height: 100%;
+  padding: 20px 20px 132px;
+  color: #131d1f;
+  background-color: #f0fbfe;
+  background-image: radial-gradient(#cee9db 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.offline-downloads-page__main {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.offline-downloads-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.offline-downloads-intro h1 {
+  margin: 0;
+  color: #006b2c;
+  font-family: 'Libre Caslon Text', Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+.offline-downloads-intro > p {
+  max-width: 672px;
+  margin: 0 auto;
+  color: #3e4a3d;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.offline-downloads-storage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 8px;
+  padding: 16px;
+  border: 1px solid rgb(189 202 186 / 30%);
+  border-radius: 12px;
+  background: #ebf6f8;
+  box-shadow: 0 1px 4px rgb(19 29 31 / 8%);
+  text-align: left;
+}
+
+.offline-downloads-storage__identity,
+.offline-downloads-package-identity {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 16px;
+}
+
+.offline-downloads-storage__icon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  color: #f7fff2;
+  background: #2a8542;
+}
+
+.offline-downloads-label,
+.offline-downloads-active-card h3,
+.offline-downloads-region-card h3 {
+  color: #131d1f;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.offline-downloads-muted,
+.offline-downloads-active-card p,
+.offline-downloads-region-card p {
+  color: #3e4a3d;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.offline-downloads-storage__progress,
+.offline-downloads-progress-track {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #d9e4e7;
+}
+
+.offline-downloads-storage__progress {
+  display: none;
+  width: 192px;
+  flex: 0 0 auto;
+}
+
+.offline-downloads-storage__progress span,
+.offline-downloads-progress-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #006b2c;
+  transition: width 300ms ease-out;
+}
+
+.offline-downloads-storage__progress span {
+  width: 78%;
+}
+
+.offline-downloads-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.offline-downloads-section--regions {
+  margin-top: 16px;
+}
+
+.offline-downloads-section h2 {
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgb(189 202 186 / 30%);
+  color: #1a6c3b;
+  font-family: 'Libre Caslon Text', Georgia, serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.offline-downloads-active-grid,
+.offline-downloads-region-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.offline-downloads-active-grid {
+  grid-template-columns: 1fr;
+}
+
+.offline-downloads-region-grid {
+  grid-template-columns: 1fr;
+}
+
+.offline-downloads-active-card,
+.offline-downloads-region-card {
+  overflow: hidden;
+  border: 1px solid rgb(189 202 186 / 30%);
+  background: #ffffff;
+}
+
+.offline-downloads-active-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgb(19 29 31 / 10%);
+}
+
+.offline-downloads-active-card__topline,
+.offline-downloads-progress-copy {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.offline-downloads-card__icon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.offline-downloads-card__icon--primary {
+  color: #006b2c;
+  background: #d9e4e7;
+}
+
+.offline-downloads-card__icon--secondary {
+  color: #227240;
+  background: #a4f5b6;
+}
+
+.offline-downloads-card__icon--tertiary {
+  color: #496156;
+  background: #cee9db;
+}
+
+.offline-downloads-active-card h3,
+.offline-downloads-region-card h3,
+.offline-downloads-active-card p,
+.offline-downloads-region-card p {
+  margin: 0;
+}
+
+.offline-downloads-region-card h3 {
+  font-size: 14px;
+}
+
+.offline-downloads-region-card p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin-top: 4px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.offline-downloads-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: #3e4a3d;
+  border-radius: 999px;
+  transition: color 160ms ease-out, background-color 160ms ease-out;
+}
+
+.offline-downloads-icon-button:hover {
+  color: #ba1a1a;
+  background: #ffdad6;
+}
+
+.offline-downloads-progress-block {
+  margin-top: 8px;
+}
+
+.offline-downloads-progress-copy {
+  align-items: center;
+  margin-bottom: 4px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.offline-downloads-progress-status {
+  color: #006b2c;
+  font-weight: 700;
+}
+
+.offline-downloads-region-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgb(19 29 31 / 8%);
+  transition: box-shadow 160ms ease-out;
+}
+
+.offline-downloads-region-card:hover {
+  box-shadow: 0 4px 12px rgb(19 29 31 / 12%);
+}
+
+.offline-downloads-region-card__visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 128px;
+  overflow: hidden;
+}
+
+.offline-downloads-region-card__visual--region-image {
+  background: #d9e4e7;
+}
+
+.offline-downloads-region-card__visual--region-image img,
+.offline-downloads-region-card__scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.offline-downloads-region-card__visual--region-image img {
+  object-fit: cover;
+  opacity: 0.8;
+  mix-blend-mode: multiply;
+}
+
+.offline-downloads-region-card__scrim {
+  background: linear-gradient(to top, rgb(0 0 0 / 50%), transparent);
+}
+
+.offline-downloads-region-card__visual--region-icon {
+  color: rgb(73 97 86 / 20%);
+  background: #dfeaed;
+}
+
+.offline-downloads-region-card__visual--region-species {
+  color: #b2cdbf;
+  background: #cee9db;
+}
+
+.offline-downloads-status-pill,
+.offline-downloads-size-pill {
+  position: absolute;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.offline-downloads-status-pill {
+  bottom: 8px;
+  left: 8px;
+  color: #131d1f;
+  background: rgb(255 255 255 / 90%);
+  backdrop-filter: blur(4px);
+}
+
+.offline-downloads-status-pill .material-symbols-outlined {
+  color: #006b2c;
+}
+
+.offline-downloads-size-pill {
+  right: 8px;
+  bottom: 8px;
+  color: #131d1f;
+  background: rgb(229 240 242 / 80%);
+}
+
+.offline-downloads-region-card__visual--region-image .offline-downloads-size-pill {
+  color: #ffffff;
+  background: transparent;
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 60%));
+}
+
+.offline-downloads-region-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px;
+}
+
+.offline-downloads-region-card__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.offline-downloads-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  transition: background-color 160ms ease-out, transform 160ms ease-out;
+}
+
+.offline-downloads-button:active {
+  transform: scale(0.97);
+}
+
+.offline-downloads-button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.offline-downloads-button--primary {
+  width: 100%;
+  color: #ffffff;
+  background: #006b2c;
+  box-shadow: 0 1px 4px rgb(0 107 44 / 16%);
+}
+
+.offline-downloads-button--primary:hover {
+  background: #005320;
+}
+
+.offline-downloads-button--secondary {
+  flex: 1;
+  color: #006b2c;
+  border: 1px solid rgb(0 107 44 / 20%);
+  background: #ebf6f8;
+}
+
+.offline-downloads-button--secondary:hover {
+  background: #e5f0f2;
+}
+
+.offline-downloads-button--tertiary {
+  flex: 1;
+  color: #ffffff;
+  background: #1a6c3b;
+}
+
+.offline-downloads-button--tertiary:hover {
+  background: #14572f;
+}
+
+.offline-downloads-message,
+.offline-downloads-network-note {
+  color: #93000a;
+  border: 1px solid #ffdad6;
+  border-radius: 8px;
+  background: #fff4f2;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.offline-downloads-message {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+}
+
+.offline-downloads-message button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+}
+
+.offline-downloads-message button:hover {
+  background: #ffdad6;
+}
+
+.offline-downloads-network-note {
+  margin: -16px 0 0;
+  padding: 12px 16px;
+}
+
+.offline-downloads-button:focus-visible,
+.offline-downloads-icon-button:focus-visible,
+.offline-downloads-message button:focus-visible {
+  outline: 2px solid #006b2c;
+  outline-offset: 2px;
+}
+
+@media (min-width: 640px) {
+  .offline-downloads-storage__progress {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  .offline-downloads-page {
+    padding: 64px 64px 132px;
+  }
+
+  .offline-downloads-intro {
+    text-align: left;
+  }
+
+  .offline-downloads-intro > p {
+    margin-left: 0;
+  }
+
+  .offline-downloads-intro h1 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .offline-downloads-active-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .offline-downloads-region-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .offline-downloads-storage__progress span,
+  .offline-downloads-progress-track span,
+  .offline-downloads-icon-button,
+  .offline-downloads-button,
+  .offline-downloads-region-card {
+    transition: none;
+  }
+}
+
