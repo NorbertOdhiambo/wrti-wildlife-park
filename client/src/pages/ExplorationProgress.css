@@ -222,8 +222,15 @@
 .exploration-progress__zones,
 .exploration-progress__flora-grid {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 16px;
+}
+
+.exploration-progress__zones {
+  grid-template-columns: 1fr;
+}
+
+.exploration-progress__flora-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .exploration-progress__zone-card {
@@ -568,15 +575,11 @@
   }
 
   .exploration-progress__flora-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 1024px) {
-  .exploration-progress__flora-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .exploration-progress__bento {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }

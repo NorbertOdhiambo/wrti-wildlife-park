@@ -54,3 +54,4 @@
 - [x] Add the Exploration Progress route with the default global Header and Bottom Navigation.
 - [x] Validate mobile-first responsive behavior, semantic progress indicators, keyboard accessibility, focus states, and reduced motion.
 - [x] Run TypeScript/build checks, compare the React route against the authoritative HTML, document notes, and save a checkpoint.
+- [x] Correct the Bookmarked Flora grid to match the Stitch `grid-cols-2 md:grid-cols-3` layout and third-card visibility rule.
