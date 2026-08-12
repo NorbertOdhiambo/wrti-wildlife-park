@@ -185,6 +185,7 @@ export interface SearchResults {
 export interface UserPreferences {
   theme: 'light' | 'dark' | 'auto';
   language: string;
+  offlineDownloads: boolean;
   notifications: {
     enabled: boolean;
     discoveries: boolean;
@@ -193,6 +194,7 @@ export interface UserPreferences {
   accessibility: {
     reducedMotion: boolean;
     highContrast: boolean;
+    colorBlindMode: boolean;
     fontSize: 'small' | 'normal' | 'large';
   };
 }

@@ -1,0 +1,336 @@
+/**
+ * Settings & Preferences — Stitch visual contract.
+ * Pale blue-green canvas, green uppercase section labels, white rounded
+ * surfaces, exact one-column mobile Appearance cards, and three columns at sm.
+ */
+
+.settings-page {
+  min-height: 100%;
+  background: #f0fbfe;
+  color: #131d1f;
+}
+
+.settings-page__main {
+  width: min(100%, 896px);
+  margin: 0 auto;
+  padding: 32px 20px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.settings-page__intro h2 {
+  margin: 0 0 8px;
+  color: #131d1f;
+  font-family: 'Libre Caslon Text', Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+.settings-page__intro p {
+  margin: 0;
+  color: #3e4a3d;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.settings-profile,
+.settings-list {
+  overflow: hidden;
+  border: 1px solid rgb(189 202 186 / 30%);
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgb(19 29 31 / 7%);
+}
+
+.settings-profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+}
+
+.settings-profile__identity {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 16px;
+}
+
+.settings-profile__avatar {
+  display: flex;
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #a4f5b6;
+  color: #227240;
+}
+
+.settings-profile h3,
+.settings-profile p {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.settings-profile h3 {
+  color: #131d1f;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 20px;
+}
+
+.settings-profile p {
+  color: #3e4a3d;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.settings-profile__edit {
+  min-height: 44px;
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #006b2c;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 20px;
+  cursor: pointer;
+  transition: background-color 160ms ease-out, transform 160ms ease-out;
+}
+
+.settings-section__title {
+  margin: 0 0 8px;
+  color: #006b2c;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+
+.settings-theme-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.settings-theme-card {
+  position: relative;
+  display: flex;
+  min-height: 112px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 16px;
+  border: 1px solid rgb(189 202 186 / 30%);
+  border-radius: 12px;
+  background: #ebf6f8;
+  color: #3e4a3d;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: background-color 160ms ease-out, border-color 160ms ease-out, transform 160ms ease-out;
+}
+
+.settings-theme-card > .material-symbols-outlined {
+  color: #3e4a3d;
+}
+
+.settings-theme-card span:not(.settings-theme-card__check) {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.settings-theme-card--selected {
+  border: 2px solid #006b2c;
+  background: #ffffff;
+  color: #131d1f;
+}
+
+.settings-theme-card--selected > .material-symbols-outlined {
+  color: #006b2c;
+}
+
+.settings-theme-card__check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #006b2c;
+  color: #ffffff;
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-row {
+  display: flex;
+  width: 100%;
+  min-height: 80px;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 0;
+  border-bottom: 1px solid rgb(189 202 186 / 20%);
+  background: #ffffff;
+  color: #131d1f;
+  text-align: left;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.settings-row:last-child {
+  border-bottom: 0;
+}
+
+.settings-row--interactive {
+  cursor: pointer;
+  transition: background-color 160ms ease-out;
+}
+
+.settings-row__leading {
+  display: inline-flex;
+  flex: 0 0 24px;
+  align-items: center;
+  justify-content: center;
+  color: #3e4a3d;
+}
+
+.settings-row__copy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.settings-row__label {
+  color: #131d1f;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.settings-row__description {
+  color: #3e4a3d;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.settings-row__chevron {
+  flex: 0 0 auto;
+  color: #3e4a3d;
+}
+
+.settings-switch {
+  position: relative;
+  display: flex;
+  width: 48px;
+  height: 24px;
+  flex: 0 0 48px;
+  align-items: center;
+  padding: 4px;
+  border: 0;
+  border-radius: 999px;
+  background: #d9e4e7;
+  cursor: pointer;
+  transition: background-color 160ms ease-out;
+}
+
+.settings-switch__thumb {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #6e7b6c;
+  box-shadow: 0 1px 2px rgb(19 29 31 / 18%);
+  transform: translateX(0);
+  transition: transform 160ms ease-out, background-color 160ms ease-out;
+}
+
+.settings-switch--checked {
+  background: #006b2c;
+}
+
+.settings-switch--checked .settings-switch__thumb {
+  background: #ffffff;
+  transform: translateX(24px);
+}
+
+.settings-profile__edit:hover,
+.settings-row--interactive:hover {
+  background: #ebf6f8;
+}
+
+.settings-theme-card:hover {
+  background: #dfeaed;
+}
+
+.settings-theme-card--selected:hover {
+  background: #ffffff;
+}
+
+.settings-profile__edit:active,
+.settings-theme-card:active,
+.settings-switch:active {
+  transform: scale(0.97);
+}
+
+.settings-profile__edit:focus-visible,
+.settings-theme-card:focus-visible,
+.settings-row--interactive:focus-visible,
+.settings-switch:focus-visible {
+  outline: 3px solid rgb(0 107 44 / 35%);
+  outline-offset: 2px;
+}
+
+@media (min-width: 640px) {
+  .settings-theme-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .settings-theme-card {
+    min-height: 128px;
+  }
+}
+
+@media (min-width: 768px) {
+  .settings-page__main {
+    padding-right: 64px;
+    padding-left: 64px;
+  }
+
+  .settings-page__intro h2 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .settings-profile__edit,
+  .settings-theme-card,
+  .settings-row--interactive,
+  .settings-switch,
+  .settings-switch__thumb {
+    transition: none;
+  }
+}

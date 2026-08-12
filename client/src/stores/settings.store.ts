@@ -15,6 +15,7 @@ import type { UserPreferences } from '@/types';
 const DEFAULT_PREFERENCES: UserPreferences = {
   theme: 'auto',
   language: 'en',
+  offlineDownloads: true,
   notifications: {
     enabled: true,
     discoveries: true,
@@ -23,6 +24,7 @@ const DEFAULT_PREFERENCES: UserPreferences = {
   accessibility: {
     reducedMotion: false,
     highContrast: false,
+    colorBlindMode: false,
     fontSize: 'normal',
   },
 };
@@ -39,6 +41,9 @@ export interface SettingsState {
   // Language
   setLanguage: (language: string) => void;
 
+  // Offline downloads
+  setOfflineDownloads: (enabled: boolean) => void;
+
   // Notifications
   setNotificationsEnabled: (enabled: boolean) => void;
   setDiscoveryNotifications: (enabled: boolean) => void;
@@ -47,6 +52,7 @@ export interface SettingsState {
   // Accessibility
   setReducedMotion: (enabled: boolean) => void;
   setHighContrast: (enabled: boolean) => void;
+  setColorBlindMode: (enabled: boolean) => void;
   setFontSize: (size: 'small' | 'normal' | 'large') => void;
 }
 
@@ -77,6 +83,15 @@ export const useSettingsStore = create<SettingsState>()(
             preferences: {
               ...state.preferences,
               language,
+            },
+          })),
+
+        // Offline downloads
+        setOfflineDownloads: (enabled) =>
+          set((state) => ({
+            preferences: {
+              ...state.preferences,
+              offlineDownloads: enabled,
             },
           })),
 
@@ -130,6 +145,16 @@ export const useSettingsStore = create<SettingsState>()(
               accessibility: {
                 ...state.preferences.accessibility,
                 highContrast: enabled,
+              },
+            },
+          })),
+        setColorBlindMode: (enabled) =>
+          set((state) => ({
+            preferences: {
+              ...state.preferences,
+              accessibility: {
+                ...state.preferences.accessibility,
+                colorBlindMode: enabled,
               },
             },
           })),

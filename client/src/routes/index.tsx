@@ -27,12 +27,12 @@ import About from '@/pages/About';
 import SupportFAQ from '@/pages/SupportFAQ';
 import ContactSupport from '@/pages/ContactSupport';
 import ExplorationProgress from '@/pages/ExplorationProgress';
+import SettingsPreferences from '@/pages/SettingsPreferences';
 
 // Placeholder page components (to be implemented in future phases)
 const MapPage = () => <div>Map Page - Coming Soon</div>;
 const DiscoveryPage = () => <div>Discovery Journal - Coming Soon</div>;
 const ProfilePage = () => <div>Profile - Coming Soon</div>;
-const SettingsPage = () => <div>Settings - Coming Soon</div>;
 const OfflineManagementPage = () => <div>Offline Management - Coming Soon</div>;
 const CheckoutPage = () => <div>Checkout - Coming Soon</div>;
 
@@ -72,8 +72,8 @@ export const routes: RouteObject[] = [
       },
       {
         path: 'settings',
-        element: <SettingsPage />,
-        handle: { shell: { header: 'detail', activeNav: 'profile', title: 'Settings' } } satisfies WRTIRouteHandle,
+        element: <SettingsPreferences />,
+        handle: { shell: { header: 'app', activeNav: 'profile', title: 'Wildlife Park' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'help',

@@ -55,3 +55,14 @@
 - [x] Validate mobile-first responsive behavior, semantic progress indicators, keyboard accessibility, focus states, and reduced motion.
 - [x] Run TypeScript/build checks, compare the React route against the authoritative HTML, document notes, and save a checkpoint.
 - [x] Correct the Bookmarked Flora grid to match the Stitch `grid-cols-2 md:grid-cols-3` layout and third-card visibility rule.
+
+## Settings & Preferences Screen
+
+- [x] Extract and inspect the complete Settings & Preferences Stitch export, screenshot, assets, icons, and interactions.
+- [x] Extract exact settings content, visual tokens, responsive rules, functional controls, navigation, and motion behavior.
+- [x] Implement the Settings & Preferences page body without duplicating the global shell.
+- [x] Integrate source-defined controls with the existing settings architecture and persistence where appropriate.
+- [x] Connect source-defined navigation to existing WRTI routes without inventing unsupported product areas.
+- [x] Add the Settings route with the default global Header and Bottom Navigation.
+- [x] Validate mobile-first fidelity, responsive behavior, keyboard accessibility, focus states, contrast, and reduced motion.
+- [x] Run TypeScript/build checks, compare against the authoritative HTML, document notes, and save a checkpoint.
