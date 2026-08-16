@@ -77,3 +77,13 @@
 - [x] Add the Offline Downloads route and connect source-defined entry points to it.
 - [x] Validate mobile-first fidelity, responsive behavior, network-aware states, keyboard accessibility, focus states, contrast, and reduced motion.
 - [x] Run TypeScript/build checks, compare against the authoritative HTML, document notes, and save a checkpoint.
+
+## Landing Page Stitch Fidelity Correction
+
+- [x] Locate and inspect the original Landing Page Stitch HTML, screenshot, assets, icons, and source-defined interactions.
+- [x] Extract exact Landing composition, copy, palette, typography, hero crop, sections, responsive rules, and animation behavior.
+- [x] Compare the current Landing route, shared shell, and existing assets against the Stitch specification and isolate fidelity gaps.
+- [x] Reimplement the Landing page body and any safe Header/Bottom Navigation variants needed for Stitch fidelity without changing unrelated screens.
+- [x] Connect source-defined purchase, map, discovery, and header actions to existing routes without fabricating backend behavior.
+- [x] Validate mobile-first pixel fidelity, responsive behavior, accessibility, focus states, reduced motion, and interaction behavior.
+- [x] Run TypeScript/build checks, document source notes and deviations, update the checklist, and save a checkpoint.

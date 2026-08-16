@@ -11,6 +11,7 @@ import { useLocation, useMatches, useNavigate, Outlet } from 'react-router-dom';
 import {
   AppHeader,
   DetailHeader,
+  LandingHeader,
   MapHeader,
 } from '@/design-system/components/Headers';
 import {
@@ -18,7 +19,7 @@ import {
   WRTI_NAV_ITEMS,
 } from '@/design-system/components/BottomNavigation';
 
-export type ShellHeaderMode = 'app' | 'detail' | 'map' | 'hidden';
+export type ShellHeaderMode = 'app' | 'detail' | 'landing' | 'map' | 'hidden';
 export type ShellBottomNavigationMode = 'default' | 'hidden';
 
 export interface WRTIShellConfig {
@@ -27,6 +28,7 @@ export interface WRTIShellConfig {
   activeNav?: string;
   title?: string;
   subtitle?: string;
+  bottomNavigationVariant?: 'standard' | 'landing';
 }
 
 export interface WRTIRouteHandle {
@@ -77,6 +79,13 @@ export default function RootLayout() {
         onBack={() => navigate(-1)}
         sticky
       />
+    ) : shell.header === 'landing' ? (
+      <LandingHeader
+        title={shell.title}
+        profileImage="/manus-storage/profile_bceb9418.jpg"
+        onMenuClick={() => navigate('/settings')}
+        onProfileClick={() => navigate('/profile')}
+      />
     ) : shell.header === 'map' ? (
       <MapHeader
         onSearchClick={() => navigate('/discovery')}
@@ -101,6 +110,7 @@ export default function RootLayout() {
         <BottomNavigation
           items={WRTI_NAV_ITEMS}
           activeId={activeNav}
+          variant={shell.bottomNavigationVariant}
           onNavigate={(id) => navigate(NAVIGATION_PATHS[id] ?? '/')}
         />
       )}

@@ -37,6 +37,7 @@ export interface BottomNavigationProps {
   onNavigate?: (id: string) => void;
   className?: string;
   showLabels?: boolean;
+  variant?: 'standard' | 'landing';
 }
 
 // ============================================================================
@@ -66,19 +67,22 @@ export function BottomNavigation({
   onNavigate,
   className,
   showLabels = true,
+  variant = 'standard',
 }: BottomNavigationProps) {
+  const isLandingVariant = variant === 'landing';
   return (
     <nav
       className={clsx(
-        'fixed bottom-0 left-0 right-0 z-50',
-        'bg-background border-t border-border',
-        'safe-area-inset-bottom',
+        'fixed z-50',
+        isLandingVariant
+          ? 'bottom-[calc(20px+env(safe-area-inset-bottom))] left-5 right-5 rounded-full border border-[#bdcaba]/30 bg-[rgba(255,255,255,0.9)] px-4 pb-4 pt-2 shadow-xl backdrop-blur-xl md:hidden'
+          : 'bottom-0 left-0 right-0 border-t border-border bg-background safe-area-inset-bottom',
         className
       )}
       role="navigation"
       aria-label="Main navigation"
     >
-      <div className="flex items-center justify-around h-16 sm:h-20">
+      <div className={clsx('flex items-center justify-around', isLandingVariant ? 'min-h-14' : 'h-16 sm:h-20')}>
         {items.map((item) => {
           const isActive = Boolean(activeId) && item.id === activeId;
           const handleClick = () => {
@@ -94,13 +98,13 @@ export function BottomNavigation({
               disabled={item.disabled}
               className={clsx(
                 'flex flex-col items-center justify-center gap-1',
-                'px-3 py-2 sm:px-4 sm:py-3',
+                isLandingVariant ? 'rounded-full px-5 py-2' : 'px-3 py-2 sm:px-4 sm:py-3',
                 'transition-all duration-200',
                 'focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
                 'relative',
                 isActive
-                  ? 'text-primary'
-                  : 'text-muted-foreground hover:text-foreground',
+                  ? (isLandingVariant ? 'bg-[#7ffc97] text-[#005320]' : 'text-primary')
+                  : (isLandingVariant ? 'text-[#3e4a3d] hover:text-[#006b2c]' : 'text-muted-foreground hover:text-foreground'),
                 item.disabled && 'opacity-50 cursor-not-allowed',
                 !item.disabled && 'cursor-pointer'
               )}
@@ -117,6 +121,7 @@ export function BottomNavigation({
                     'transition-transform duration-200',
                     isActive && 'scale-110'
                   )}
+                  fill={isLandingVariant && isActive}
                 />
 
                 {/* Badge */}
@@ -152,7 +157,7 @@ export function BottomNavigation({
               )}
 
               {/* Active Indicator */}
-              {isActive && (
+              {isActive && !isLandingVariant && (
                 <div
                   className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary rounded-full"
                   aria-hidden="true"

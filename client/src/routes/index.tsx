@@ -48,7 +48,13 @@ export const routes: RouteObject[] = [
       {
         index: true,
         element: <Landing />,
-        handle: { shell: { activeNav: undefined } } satisfies WRTIRouteHandle,
+        handle: {
+          shell: {
+            header: 'landing',
+            activeNav: 'discovery',
+            bottomNavigationVariant: 'landing',
+          },
+        } satisfies WRTIRouteHandle,
       },
       {
         path: 'map',

@@ -12,6 +12,7 @@
  * - Safe area handling
  */
 
+import { useEffect, useState } from 'react';
 import { Icon } from '../icons';
 import { clsx } from 'clsx';
 
@@ -54,6 +55,13 @@ export interface MapHeaderProps {
   actions?: HeaderAction[];
   className?: string;
   sticky?: boolean;
+}
+
+export interface LandingHeaderProps {
+  title?: string;
+  profileImage?: string;
+  onMenuClick?: () => void;
+  onProfileClick?: () => void;
 }
 
 // ============================================================================
@@ -130,6 +138,66 @@ export function AppHeader({
           </div>
         )}
       </div>
+    </header>
+  );
+}
+
+// ============================================================================
+// Landing Header Component
+// ============================================================================
+
+/**
+ * Landing Header - Source-specific application-shell variant for the Stitch
+ * home screen. The shared shell still owns the header; this variation preserves
+ * the reference's floating, translucent, scroll-responsive composition.
+ */
+export function LandingHeader({
+  title = 'WRTI Wildlife Park',
+  profileImage,
+  onMenuClick,
+  onProfileClick,
+}: LandingHeaderProps) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <header
+      className={clsx(
+        'fixed top-2 left-2 right-2 z-50 mx-5 grid h-14 grid-cols-[40px_1fr_40px] items-center rounded-full border border-[#bdcaba]/30 px-4 backdrop-blur-md transition-[background-color,box-shadow] duration-200',
+        scrolled ? 'bg-[rgba(240,251,254,0.95)] shadow-lg' : 'bg-[rgba(240,251,254,0.8)] shadow-md'
+      )}
+    >
+      <button
+        type="button"
+        aria-label="Open menu"
+        onClick={onMenuClick}
+        className="flex h-10 w-10 items-center justify-center rounded-full text-[#3e4a3d] transition-colors duration-200 hover:bg-[#dfeaed]/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#006b2c] focus-visible:ring-offset-2 active:scale-95"
+      >
+        <Icon name="menu" size={24} />
+      </button>
+      <h1 className="justify-self-center truncate px-2 font-serif text-[16px] font-semibold leading-6 tracking-tight text-[#006b2c] sm:text-[24px]">
+        {title}
+      </h1>
+      <button
+        type="button"
+        aria-label="Open profile"
+        onClick={onProfileClick}
+        className="h-8 w-8 justify-self-end overflow-hidden rounded-full border border-[#bdcaba]/30 transition-[box-shadow,transform] duration-200 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#006b2c] focus-visible:ring-offset-2 active:scale-95"
+      >
+        {profileImage ? (
+          <img src={profileImage} alt="Profile picture of user" className="h-full w-full object-cover" />
+        ) : (
+          <span className="flex h-full w-full items-center justify-center bg-[#e5f0f2] text-[#006b2c]">
+            <Icon name="profile" size={18} />
+          </span>
+        )}
+      </button>
     </header>
   );
 }
@@ -345,6 +413,7 @@ export function MapHeader({
 
 export default {
   AppHeader,
+  LandingHeader,
   DetailHeader,
   MapHeader,
 };
