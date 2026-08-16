@@ -90,6 +90,10 @@
 
 ## Supabase Integration & Typed Data Layer
 
+- [x] Inspect the existing live Supabase client, repository, Tree types, query hooks, Discovery route, tests, and verification artifacts without code changes.
+- [x] Re-run credential-safe read-only verification for runtime variable presence, Tree list/detail/image/audio reads, pagination, and anonymous access behavior.
+- [x] Audit remaining Tree mock/static data and regression-check Landing, shared shell, routing, tests, and production build without modifying code.
+- [x] Deliver a factual live-integration baseline covering verified fields, schema limits, mappings, query architecture, and the exact required final statuses.
 - [x] Verify the running/build Vite environment exposes both required public Supabase variables without printing or committing their values.
 - [x] Perform a minimal anonymous-client connectivity check and inspect the actual Tree, image, audio, storage, and public-read behavior without modifying Supabase.
 - [x] Record verified schema, relationships, observed nullable fields, storage access, RLS observations, and database-to-application mappings before implementing concrete queries.
