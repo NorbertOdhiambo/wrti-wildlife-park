@@ -1,9 +1,10 @@
 /**
- * Intended WRTI application data contracts.
+ * Verified WRTI Tree application contracts.
  *
- * These types are deliberately NOT a representation of a verified Supabase
- * schema. Table names, columns, relationships, storage buckets, and RLS rules
- * remain unknown until live environment configuration is available.
+ * Source: anonymous read probes against public.trees, public.tree_images, and
+ * public.tree_audio on the connected external Supabase project. Nullable values
+ * reflect observed public-result behavior; database-declared nullability remains
+ * intentionally unasserted because information_schema is not anonymous-readable.
  */
 
 export interface Tree {
@@ -12,30 +13,37 @@ export interface Tree {
   species: string | null;
   family: string | null;
   description: string | null;
-  lat: number;
-  lng: number;
-  qr_code_url?: string;
-  qr_code_path?: string;
-  imgUrl?: string;
-  audio_url: string;
-  fun_fact: string;
+  qr_code_url: string | null;
+  qr_code_path: string | null;
+  audio_url: string | null;
+  lat: number | null;
+  lng: number | null;
+  fun_fact: string | null;
   created_at: string;
+  updated_at: string;
 }
 
 export interface TreeImage {
   id: string;
   tree_id: number;
   image_path: string;
+  caption: string | null;
+  is_primary: boolean;
   is_main: boolean;
-  caption?: string;
+  file_size: number | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface TreeAudio {
   id: string;
   tree_id: number;
   audio_path: string;
-  audio_url: string;
-  transcript?: string;
+  audio_url: string | null;
+  transcript: string | null;
+  duration_seconds: number | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface UserLocation {

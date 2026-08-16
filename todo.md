@@ -90,6 +90,13 @@
 
 ## Supabase Integration & Typed Data Layer
 
+- [x] Verify the running/build Vite environment exposes both required public Supabase variables without printing or committing their values.
+- [x] Perform a minimal anonymous-client connectivity check and inspect the actual Tree, image, audio, storage, and public-read behavior without modifying Supabase.
+- [x] Record verified schema, relationships, observed nullable fields, storage access, RLS observations, and database-to-application mappings before implementing concrete queries.
+- [x] Implement concrete Tree list, detail, image, audio, storage, and pagination operations using only verified table and field names.
+- [x] Connect exactly one approved Tree-related screen through TanStack Query while preserving its structure and leaving unrelated mock content untouched.
+- [x] Validate live list/detail records, actual pagination, loading/empty/error states, anonymous permissions, accessibility, and visual fidelity without Mapbox or payment work.
+- [x] Document remaining mock locations and verified live findings, then save a checkpoint.
 - [x] Record the no-live-credentials Supabase foundation boundary and avoid all schema, storage, credential, RLS, migration, and real-data assumptions.
 - [x] Inspect existing Tree static-data migration points and document them without connecting screens to unverified data.
 - [x] Install the frontend Supabase client dependency and document the platform-managed secret workflow; no local `.env` or `.env.example` was created.

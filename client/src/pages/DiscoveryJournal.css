@@ -1,0 +1,49 @@
+/** WRTI Discovery Journal — live Tree data using the established botanical material palette. */
+
+.discovery-journal { min-height: 100%; padding: 28px 20px 112px; background: #f0fbfe; color: #131d1f; }
+.discovery-journal__hero, .discovery-journal__collection { width: min(100%, 1120px); margin: 0 auto; }
+.discovery-journal__hero { padding: 28px; border-radius: 18px; background: linear-gradient(130deg, #e2f7e8 0%, #ffffff 55%, #dff0f3 100%); box-shadow: 0 8px 24px rgba(19, 29, 31, 0.08); }
+.discovery-journal__eyebrow { display: block; color: #006b2c; font-size: 12px; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; }
+.discovery-journal h1, .discovery-journal h2 { font-family: 'Libre Caslon Text', serif; }
+.discovery-journal h1 { margin: 8px 0; font-size: clamp(32px, 8vw, 52px); line-height: 1.04; }
+.discovery-journal__hero > p { max-width: 560px; margin: 0; color: #3e4a3d; font-size: 16px; line-height: 1.6; }
+.discovery-journal__search { display: flex; align-items: center; gap: 10px; margin-top: 24px; padding: 6px 6px 6px 14px; border: 1px solid #bdcaba; border-radius: 12px; background: #ffffff; color: #496156; }
+.discovery-journal__search input { width: 100%; min-width: 0; border: 0; outline: none; background: transparent; color: #131d1f; font: 500 14px/20px 'Plus Jakarta Sans', sans-serif; }
+.discovery-journal__search button, .discovery-journal__state button, .discovery-journal__pagination button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; border: 0; border-radius: 9px; background: #006b2c; color: #ffffff; font: 700 13px/18px 'Plus Jakarta Sans', sans-serif; cursor: pointer; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background 180ms cubic-bezier(0.23, 1, 0.32, 1); }
+.discovery-journal__search button { padding: 0 14px; }
+.discovery-journal__search button:active, .discovery-journal__state button:active, .discovery-journal__pagination button:active { transform: scale(0.97); }
+.discovery-journal__search button:focus-visible, .discovery-journal__state button:focus-visible, .discovery-journal__pagination button:focus-visible { outline: 3px solid #a4f5b6; outline-offset: 3px; }
+.discovery-journal__collection { margin-top: 36px; }
+.discovery-journal__collection-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.discovery-journal__collection-heading h2, .discovery-journal__state h2 { margin: 0; font-size: 26px; }
+.discovery-journal__collection-heading p, .discovery-journal__refreshing { margin: 5px 0 0; color: #3e4a3d; font-size: 13px; font-weight: 600; }
+.discovery-journal__refreshing { color: #006b2c; }
+.discovery-journal__grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.discovery-journal__tree-card { position: relative; display: flex; gap: 14px; min-height: 146px; padding: 18px; overflow: hidden; border: 1px solid rgba(189, 202, 186, 0.7); border-radius: 14px; background: #ffffff; box-shadow: 0 3px 10px rgba(19, 29, 31, 0.05); }
+.discovery-journal__tree-icon { display: flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: #e2f7e8; color: #006b2c; }
+.discovery-journal__tree-copy { min-width: 0; }
+.discovery-journal__tree-copy h2 { margin: 0; font-size: 21px; line-height: 1.18; }
+.discovery-journal__tree-copy p { margin: 7px 0 0; color: #3e4a3d; font-size: 13px; line-height: 1.5; }
+.discovery-journal__tree-copy p:not(.discovery-journal__taxonomy) { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 4; }
+.discovery-journal__tree-copy .discovery-journal__taxonomy { color: #006b2c; font-weight: 700; }
+.discovery-journal__location-indicator { position: absolute; top: 14px; right: 14px; color: #496156; }
+.discovery-journal__state { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 260px; padding: 28px; border: 1px dashed #bdcaba; border-radius: 14px; background: #ffffff; color: #006b2c; text-align: center; }
+.discovery-journal__state h2 { margin-top: 12px; color: #131d1f; }
+.discovery-journal__state p { margin: 8px 0 18px; color: #3e4a3d; }
+.discovery-journal__state button { padding: 0 16px; }
+.discovery-journal__pagination { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 22px; }
+.discovery-journal__pagination button { padding: 0 12px; }
+.discovery-journal__pagination button:disabled { cursor: not-allowed; opacity: 0.45; }
+.discovery-journal__pagination span { color: #3e4a3d; font-size: 12px; font-weight: 700; text-align: center; }
+.discovery-journal__tree-card--skeleton { pointer-events: none; }
+.discovery-journal__skeleton-icon, .discovery-journal__skeleton-copy span { background: linear-gradient(90deg, #e5f0f2 25%, #f7fbfc 50%, #e5f0f2 75%); background-size: 200% 100%; animation: discovery-shimmer 1.4s ease-in-out infinite; }
+.discovery-journal__skeleton-icon { width: 48px; height: 48px; border-radius: 50%; }
+.discovery-journal__skeleton-copy { flex: 1; padding-top: 4px; }
+.discovery-journal__skeleton-copy span { display: block; height: 14px; margin-bottom: 11px; border-radius: 99px; }
+.discovery-journal__skeleton-copy span:nth-child(1) { width: 45%; }
+.discovery-journal__skeleton-copy span:nth-child(2) { width: 31%; }
+.discovery-journal__skeleton-copy span:nth-child(3) { width: 88%; }
+@keyframes discovery-shimmer { to { background-position: -200% 0; } }
+@media (min-width: 680px) { .discovery-journal { padding-right: 40px; padding-left: 40px; } .discovery-journal__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .discovery-journal { padding-top: 42px; } .discovery-journal__hero { padding: 42px; } .discovery-journal__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; } .discovery-journal__tree-card { min-height: 188px; } }
+@media (prefers-reduced-motion: reduce) { .discovery-journal *, .discovery-journal *::before, .discovery-journal *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }

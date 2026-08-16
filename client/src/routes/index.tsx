@@ -29,10 +29,10 @@ import ContactSupport from '@/pages/ContactSupport';
 import ExplorationProgress from '@/pages/ExplorationProgress';
 import SettingsPreferences from '@/pages/SettingsPreferences';
 import OfflineDownloads from '@/pages/OfflineDownloads';
+import DiscoveryJournal from '@/pages/DiscoveryJournal';
 
 // Placeholder page components (to be implemented in future phases)
 const MapPage = () => <div>Map Page - Coming Soon</div>;
-const DiscoveryPage = () => <div>Discovery Journal - Coming Soon</div>;
 const ProfilePage = () => <div>Profile - Coming Soon</div>;
 const CheckoutPage = () => <div>Checkout - Coming Soon</div>;
 
@@ -63,7 +63,7 @@ export const routes: RouteObject[] = [
       },
       {
         path: 'discovery',
-        element: <DiscoveryPage />,
+        element: <DiscoveryJournal />,
         handle: { shell: { activeNav: 'discovery' } } satisfies WRTIRouteHandle,
       },
       {

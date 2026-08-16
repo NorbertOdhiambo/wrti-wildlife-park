@@ -1,8 +1,9 @@
 /**
- * Tree TanStack Query contracts.
+ * Tree TanStack Query operations.
  *
- * Query keys are stable application contracts. Query execution is intentionally
- * deferred until both Supabase configuration and live schema verification exist.
+ * Query keys remain application contracts. Execution is enabled only when the
+ * public Supabase runtime configuration exists; repository details stay hidden
+ * behind the feature boundary.
  */
 
 import { useQuery, type UseQueryResult } from '@tanstack/react-query';
@@ -24,9 +25,9 @@ export const treeQueryKeys = {
   audio: (treeId: number) => ['trees', treeId, 'audio'] as const,
 };
 
-/** Live data hooks stay idle until a later schema-verification phase enables them. */
+/** The schema is verified; a missing runtime configuration still keeps hooks idle. */
 export const isLiveTreeDataAvailable = (): boolean =>
-  TREE_SCHEMA_STATUS !== 'pending-live-verification' && isSupabaseConfigured();
+  TREE_SCHEMA_STATUS === 'verified-live' && isSupabaseConfigured();
 
 interface TreeQueryOptions {
   enabled?: boolean;
@@ -44,6 +45,8 @@ export function useTrees(
     queryKey: treeQueryKeys.list(input),
     queryFn: () => treeRepository.getTrees(input),
     enabled: shouldEnableTreeQuery(options),
+    staleTime: 60_000,
+    retry: 1,
   });
 }
 
@@ -55,6 +58,8 @@ export function useTree(
     queryKey: treeQueryKeys.detail(treeId),
     queryFn: () => treeRepository.getTree(treeId),
     enabled: shouldEnableTreeQuery(options) && Number.isInteger(treeId) && treeId > 0,
+    staleTime: 60_000,
+    retry: 1,
   });
 }
 
@@ -66,6 +71,8 @@ export function useTreeImages(
     queryKey: treeQueryKeys.images(treeId),
     queryFn: () => treeRepository.getTreeImages(treeId),
     enabled: shouldEnableTreeQuery(options) && Number.isInteger(treeId) && treeId > 0,
+    staleTime: 60_000,
+    retry: 1,
   });
 }
 
@@ -77,5 +84,7 @@ export function useTreeAudio(
     queryKey: treeQueryKeys.audio(treeId),
     queryFn: () => treeRepository.getTreeAudio(treeId),
     enabled: shouldEnableTreeQuery(options) && Number.isInteger(treeId) && treeId > 0,
+    staleTime: 60_000,
+    retry: 1,
   });
 }
