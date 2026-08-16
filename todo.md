@@ -87,3 +87,23 @@
 - [x] Connect source-defined purchase, map, discovery, and header actions to existing routes without fabricating backend behavior.
 - [x] Validate mobile-first pixel fidelity, responsive behavior, accessibility, focus states, reduced motion, and interaction behavior.
 - [x] Run TypeScript/build checks, document source notes and deviations, update the checklist, and save a checkpoint.
+
+## Supabase Integration & Typed Data Layer
+
+- [x] Record the no-live-credentials Supabase foundation boundary and avoid all schema, storage, credential, RLS, migration, and real-data assumptions.
+- [x] Inspect existing Tree static-data migration points and document them without connecting screens to unverified data.
+- [x] Install the frontend Supabase client dependency and document the platform-managed secret workflow; no local `.env` or `.env.example` was created.
+- [x] Add an environment-only centralized client that has a clear configuration error path but no fallback credentials.
+- [x] Create initial WRTI application contracts and schema-independent Tree repository interfaces, query keys, and disabled-until-configured hooks.
+- [x] Add focused foundation tests, validate existing visual routes remain unchanged, and document the deferred live-schema work.
+- [x] Read the full backend requirements and inspect the current data architecture, dependencies, environment configuration, TanStack Query setup, stores, Tree code, and tests.
+- [x] Diagnose the Manus-managed `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` configuration, Vite runtime exposure, restart need, and local environment-file hygiene without reading or exposing secret values.
+- [x] Report the unavailable runtime configuration and required secret-management path before attempting schema inspection or database integration.
+- [x] Defer actual Supabase schema, storage configuration, and anonymous-client permission inspection until live public variables are available.
+- [x] Document intended database-to-domain mappings and current access limitations without claiming verified schema findings.
+- [x] Add a centralized environment-driven Supabase client at the architecture-compatible `src/utils/api.ts` boundary.
+- [x] Add Tree, TreeImage, TreeAudio, location, pagination, and navigation application contracts without inventing database fields.
+- [x] Implement reusable Tree repository interfaces for pagination, individual trees, images, audio, primary images, and storage URL resolution; live operations remain intentionally deferred.
+- [x] Add TanStack Query hooks and query keys that keep server state outside Zustand and Supabase details out of components.
+- [x] Add focused configuration and contract-boundary tests; validate TypeScript, build, and unchanged visual routes while deferring real anonymous access validation.
+- [x] Document the reusable data layer, update the checklist, and save a checkpoint.
