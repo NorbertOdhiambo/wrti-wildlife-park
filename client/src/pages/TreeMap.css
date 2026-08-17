@@ -1,0 +1,81 @@
+/*
+ * WRTI Live Tree Map styles.
+ * Design fidelity reminder: map-first, low-contrast paper surfaces float over
+ * a true Mapbox outdoor base map; use #006b2c as the tactile botanical accent.
+ */
+
+.tree-map-page { background: #dfeaed; }
+
+.tree-map {
+  height: calc(100svh - 64px);
+  min-height: 580px;
+  background: #dfeaed;
+}
+
+.tree-map__canvas { width: 100%; height: 100%; background: #dfeaed; }
+.tree-map__canvas .mapboxgl-ctrl-bottom-right,
+.tree-map__canvas .mapboxgl-ctrl-bottom-left { display: none; }
+
+.tree-map__topbar { position: relative; padding: 12px 16px 0; }
+.tree-map__search { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 13px; border: 1px solid rgba(0, 107, 44, .12); border-radius: 16px; background: rgba(240, 251, 254, .95); box-shadow: 0 8px 22px rgba(21, 45, 34, .14); backdrop-filter: blur(12px); }
+.tree-map__search > .material-symbols-outlined { color: #006b2c; }
+.tree-map__search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: #131d1f; font: 600 14px/1.3 'Plus Jakarta Sans', sans-serif; }
+.tree-map__search input::placeholder { color: #647269; }
+.tree-map__search button, .tree-map__settings-heading button { display: inline-grid; place-items: center; padding: 0; border: 0; background: transparent; color: #3e4a3d; cursor: pointer; }
+.tree-map__search-results { position: absolute; top: 67px; right: 16px; left: 16px; overflow: hidden; border: 1px solid rgba(0, 107, 44, .12); border-radius: 16px; background: #f0fbfe; box-shadow: 0 14px 30px rgba(21, 45, 34, .18); }
+.tree-map__search-results button, .tree-map__nearby-list button { display: flex; width: 100%; align-items: center; gap: 10px; padding: 12px 14px; border: 0; border-bottom: 1px solid #dbe8e7; background: transparent; text-align: left; color: #006b2c; cursor: pointer; }
+.tree-map__search-results button:last-child, .tree-map__nearby-list button:last-child { border-bottom: 0; }
+.tree-map__search-results strong, .tree-map__nearby-list strong { display: block; color: #131d1f; font: 700 13px/1.3 'Plus Jakarta Sans', sans-serif; }
+.tree-map__search-results small, .tree-map__nearby-list small { display: block; margin-top: 2px; color: #647269; font: 500 11px/1.3 'Plus Jakarta Sans', sans-serif; }
+
+.tree-map__controls { display: grid; overflow: hidden; border: 1px solid rgba(0, 107, 44, .12); border-radius: 15px; background: rgba(240, 251, 254, .96); box-shadow: 0 7px 18px rgba(21, 45, 34, .14); }
+.tree-map__controls button, .tree-map__locate { display: grid; width: 43px; height: 43px; place-items: center; border: 0; border-bottom: 1px solid #dbe8e7; background: transparent; color: #006b2c; cursor: pointer; }
+.tree-map__controls button:last-child { border-bottom: 0; }
+.tree-map__locate { border: 1px solid rgba(0, 107, 44, .12); border-radius: 50%; background: #f0fbfe; box-shadow: 0 7px 18px rgba(21, 45, 34, .16); }
+.tree-map__locate:disabled { opacity: .6; cursor: wait; }
+
+.tree-map__marker { display: grid; width: 34px; height: 34px; place-items: center; border: 3px solid #f0fbfe; border-radius: 50% 50% 50% 0; background: #006b2c; color: #f0fbfe; box-shadow: 0 4px 10px rgba(0, 56, 26, .3); transform: rotate(-45deg); cursor: pointer; }
+.tree-map__marker > span { transform: rotate(45deg); font-size: 19px; }
+.tree-map__marker--selected { width: 42px; height: 42px; background: #ecb55b; color: #132a1d; box-shadow: 0 7px 14px rgba(80, 53, 10, .32); }
+
+.tree-map__settings { width: min(330px, calc(100vw - 32px)); padding: 18px; border: 1px solid rgba(0, 107, 44, .14); border-radius: 20px; background: rgba(240, 251, 254, .98); box-shadow: 0 18px 44px rgba(21, 45, 34, .22); }
+.tree-map__settings-heading, .tree-map__sheet-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.tree-map__settings-heading span { display: inline-flex; align-items: center; gap: 7px; color: #006b2c; font: 800 14px/1.3 'Plus Jakarta Sans', sans-serif; }
+.tree-map__settings > p { margin: 16px 0 8px; color: #3e4a3d; font: 700 12px/1.3 'Plus Jakarta Sans', sans-serif; }
+.tree-map__theme-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.tree-map__theme-options button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; border: 1px solid #c8dcd7; border-radius: 12px; background: #f9ffff; color: #3e4a3d; font: 700 12px/1 'Plus Jakarta Sans', sans-serif; cursor: pointer; }
+.tree-map__theme-options button[data-state='on'] { border-color: #006b2c; background: #006b2c; color: #fff; }
+.tree-map__settings-note { margin-bottom: 0 !important; color: #6e5540 !important; font-weight: 500 !important; }
+
+.tree-map__status-strip { display: grid; gap: 6px; padding: 0 16px 12px; pointer-events: none; }
+.tree-map__status-strip span { display: inline-flex; width: fit-content; max-width: 100%; align-items: center; gap: 5px; padding: 6px 10px; border-radius: 999px; background: rgba(240, 251, 254, .92); box-shadow: 0 5px 12px rgba(21, 45, 34, .13); color: #23593c; font: 700 11px/1.25 'Plus Jakarta Sans', sans-serif; }
+.tree-map__status-strip--warning { color: #8a4d16 !important; }
+
+.tree-map__sheet { bottom: calc(5rem + env(safe-area-inset-bottom)); max-width: 740px; margin: auto; border: 1px solid rgba(0, 107, 44, .12) !important; border-radius: 24px 24px 0 0 !important; background: rgba(240, 251, 254, .98) !important; box-shadow: 0 -8px 30px rgba(21, 45, 34, .18); }
+.tree-map__sheet .tree-map__sheet-handle { display: block; width: 38px; height: 4px; border-radius: 99px; background: #9fb5ae; }
+.tree-map__sheet-content > div { padding-top: 2px !important; }
+.tree-map__sheet-heading > div:first-child > span { color: #006b2c; font: 800 10px/1.25 'Plus Jakarta Sans', sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+.tree-map__sheet-heading h1 { margin: 3px 0 0; color: #132a1d; font: 700 23px/1.05 'Libre Caslon Text', serif; }
+.tree-map__sheet-snaps { display: inline-flex; align-items: center; gap: 5px; }
+.tree-map__sheet-snaps button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: #bfd1cc; cursor: pointer; }
+.tree-map__sheet-snaps button[aria-pressed='true'] { width: 18px; border-radius: 999px; background: #006b2c; }
+.tree-map__nearby-list { margin-top: 14px; border-top: 1px solid #dbe8e7; }
+.tree-map__nearby-list button { padding-right: 2px; }
+.tree-map__nearby-list button > .material-symbols-outlined:last-child { margin-left: auto; }
+.tree-map__selected-card { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 14px; margin-top: 15px; padding: 10px; border: 1px solid #d3e2df; border-radius: 16px; background: #fff; }
+.tree-map__selected-card img, .tree-map__selected-media-fallback { width: 104px; height: 118px; border-radius: 11px; object-fit: cover; }
+.tree-map__selected-media-fallback { display: grid; place-items: center; background: #dfeaed; color: #006b2c; }
+.tree-map__family-chip { display: inline-block; padding: 3px 6px; border-radius: 999px; background: #e4f3e9; color: #006b2c; font: 800 9px/1 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; }
+.tree-map__selected-card h2 { margin: 7px 0 3px; color: #132a1d; font: 700 18px/1.05 'Libre Caslon Text', serif; }
+.tree-map__selected-card p { margin: 0; color: #647269; font: italic 500 12px/1.3 'Plus Jakarta Sans', sans-serif; }
+.tree-map__selected-card a { display: inline-flex; align-items: center; gap: 4px; margin-top: 11px; color: #006b2c; font: 800 12px/1.2 'Plus Jakarta Sans', sans-serif; }
+
+.tree-map__loading { position: fixed; right: 16px; bottom: 96px; z-index: 60; display: inline-flex; align-items: center; gap: 7px; padding: 10px 12px; border-radius: 12px; background: #f0fbfe; box-shadow: 0 8px 18px rgba(21, 45, 34, .18); color: #006b2c; font: 700 12px/1.2 'Plus Jakarta Sans', sans-serif; }
+.tree-map__state-message { display: grid; place-items: center; min-height: calc(100svh - 144px); padding: 36px 24px; text-align: center; color: #006b2c; }
+.tree-map__state-message h1 { margin: 14px 0 6px; color: #132a1d; font: 700 29px/1.05 'Libre Caslon Text', serif; }
+.tree-map__state-message p { max-width: 360px; margin: 0; color: #52625a; font: 500 14px/1.55 'Plus Jakarta Sans', sans-serif; }
+.tree-map__state-message button { margin-top: 18px; padding: 11px 16px; border: 0; border-radius: 12px; background: #006b2c; color: #fff; font: 800 13px/1 'Plus Jakarta Sans', sans-serif; cursor: pointer; }
+
+.tree-map button:focus-visible, .tree-map a:focus-visible, .tree-map-page button:focus-visible { outline: 3px solid #ecb55b; outline-offset: 3px; }
+@media (min-width: 768px) { .tree-map { height: calc(100svh - 72px); } .tree-map__topbar { max-width: 480px; padding: 18px 20px 0; } .tree-map__search-results { top: 75px; right: auto; left: 20px; width: 440px; } .tree-map__sheet { bottom: calc(5.5rem + env(safe-area-inset-bottom)); border-radius: 24px !important; } .tree-map__status-strip { padding: 0 20px 18px; } }
+@media (prefers-reduced-motion: reduce) { .tree-map *, .tree-map *::before, .tree-map *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }

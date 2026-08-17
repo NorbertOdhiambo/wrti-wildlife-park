@@ -48,14 +48,18 @@ export interface BottomSheetProps {
   contentClassName?: string;
   /** Safe area handling */
   safeArea?: boolean;
+  /** Render as a modal dialog, or as a persistent non-modal map region. */
+  modal?: boolean;
+  /** Accessible label for the sheet region. */
+  ariaLabel?: string;
 }
 
 // State height percentages
 const STATE_HEIGHTS: Record<BottomSheetState, number> = {
-  collapsed: 20,
-  peek: 40,
+  collapsed: 0,
+  peek: 25,
   half: 50,
-  full: 90,
+  full: 80,
 };
 
 export function BottomSheet({
@@ -70,6 +74,8 @@ export function BottomSheet({
   className,
   contentClassName,
   safeArea = true,
+  modal = true,
+  ariaLabel = 'Bottom sheet',
 }: BottomSheetProps) {
   const isControlled = controlledState !== undefined;
   const [uncontrolledState, setUncontrolledState] = useState<BottomSheetState>(defaultState);
@@ -174,9 +180,9 @@ export function BottomSheet({
           height: `${heightPercent}vh`,
           maxHeight: '100vh',
         }}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Bottom sheet"
+        role={modal ? 'dialog' : 'region'}
+        aria-modal={modal || undefined}
+        aria-label={ariaLabel}
       >
         {/* Handle/Drag Area */}
         <div

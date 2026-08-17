@@ -32,9 +32,9 @@ import OfflineDownloads from '@/pages/OfflineDownloads';
 import DiscoveryJournal from '@/pages/DiscoveryJournal';
 import TreeDetail from '@/pages/TreeDetail';
 import AllTreesDirectory from '@/pages/AllTreesDirectory';
+import TreeMap from '@/pages/TreeMap';
 
 // Placeholder page components (to be implemented in future phases)
-const MapPage = () => <div>Map Page - Coming Soon</div>;
 const ProfilePage = () => <div>Profile - Coming Soon</div>;
 const CheckoutPage = () => <div>Checkout - Coming Soon</div>;
 
@@ -60,7 +60,7 @@ export const routes: RouteObject[] = [
       },
       {
         path: 'map',
-        element: <MapPage />,
+        element: <TreeMap />,
         handle: { shell: { header: 'map', activeNav: 'map' } } satisfies WRTIRouteHandle,
       },
       {

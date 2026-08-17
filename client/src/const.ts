@@ -11,9 +11,6 @@ export const ENV = {
   // API Configuration
   API_BASE_URL: import.meta.env.VITE_API_BASE_URL || '/api',
   
-  // Map Configuration
-  MAPBOX_TOKEN: import.meta.env.VITE_MAPBOX_TOKEN || '',
-  
   // Feature Flags
   ENABLE_OFFLINE_MODE: import.meta.env.VITE_ENABLE_OFFLINE_MODE === 'true',
   ENABLE_RESEARCH_MODE: import.meta.env.VITE_ENABLE_RESEARCH_MODE === 'true',
@@ -63,7 +60,9 @@ export const MAP_CONFIG = {
   DEFAULT_ZOOM: 15,
   MIN_ZOOM: 10,
   MAX_ZOOM: 20,
-  DEFAULT_CENTER: { lat: 0, lng: 0 }, // Will be set per park
+  // Legacy-store fallback only. The live TreeMap never consumes this value;
+  // its Mapbox camera is derived from verified non-placeholder Tree bounds.
+  DEFAULT_CENTER: { lat: 0, lng: 0 },
   ANIMATION_DURATION: 300,
 } as const;
 

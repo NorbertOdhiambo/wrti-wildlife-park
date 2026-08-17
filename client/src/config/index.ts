@@ -1,3 +1,5 @@
+import { mapboxConfig } from './mapbox';
+
 /**
  * Application Configuration
  *
@@ -23,9 +25,7 @@ export const CONFIG = {
   },
 
   // Map
-  map: {
-    mapboxToken: import.meta.env.VITE_MAPBOX_TOKEN,
-  },
+  map: mapboxConfig,
 
   // Analytics
   analytics: {

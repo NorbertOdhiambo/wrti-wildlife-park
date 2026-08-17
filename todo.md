@@ -144,3 +144,15 @@
 - [x] Preserve active search, Family/Species filters, pagination page, total count, and Tree results while switching presentation modes.
 - [x] Validate Grid/List state changes, multiple live Tree-detail links, keyboard interactions, mobile/tablet/desktop layouts, reduced motion, TypeScript, tests, and production build.
 - [x] Document the focused enhancement, update this checklist, save a checkpoint, and deliver the result.
+
+## Mapbox Foundation and Live Tree Map
+
+- [x] Read the complete Map phase requirements and inspect all approved Map specifications, Stitch source files, screenshots, assets, and current application implementation.
+- [x] Audit the shared shell, routing, Tree repository/query hooks/types, media resolution, Discovery and Tree Detail screens, BottomSheet, existing map/location utilities, design tokens, offline behavior, and dependencies.
+- [x] Verify the safe runtime presence of `VITE_MAPBOX_ACCESS_TOKEN` without reading, printing, committing, or duplicating configuration values.
+- [x] Audit live Tree coordinate coverage and related nullable fields using read-only anonymous data access; do not fabricate coordinates or map records.
+- [x] Define the smallest source-aligned Mapbox integration boundary, map state model, marker layer, selection behavior, camera constraints, search, location fallback, themes, and BottomSheet state flow.
+- [x] Add Mapbox GL only if it is absent, then implement the real map surface, live markers, source-defined overlays, selected Tree preview, search, map controls, and existing dynamic Tree Detail transition.
+- [x] Implement approved exploration/navigation state only where live routing/path data supports it; provide explicit graceful limitations where it does not.
+- [x] Validate live marker data, mobile/tablet/desktop layouts, keyboard access, motion, location/offline/map-resource fallback states, tests, TypeScript, production build, and active browser console.
+- [x] Document verified data mappings, supported behavior, technical limitations, validation evidence, update this checklist, save a checkpoint, and report the Map phase result.
