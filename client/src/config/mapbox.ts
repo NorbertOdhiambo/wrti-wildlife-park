@@ -6,8 +6,17 @@
  */
 
 export const MAPBOX_STYLES = {
-  daylight: 'mapbox://styles/mapbox/outdoors-v12',
-  dusk: 'mapbox://styles/mapbox/navigation-night-v1',
+  eco: 'mapbox://styles/mapbox/outdoors-v12',
+  satellite: 'mapbox://styles/mapbox/satellite-streets-v12',
+  terrain: 'mapbox://styles/mapbox/outdoors-v12',
+  minimalist: 'mapbox://styles/mapbox/light-v11',
+} as const;
+
+export const MAPBOX_THEME_METADATA = {
+  eco: { label: 'Eco-Map', icon: 'nature' },
+  satellite: { label: 'Satellite', icon: 'satellite' },
+  terrain: { label: 'Terrain', icon: 'landscape' },
+  minimalist: { label: 'Minimalist', icon: 'map' },
 } as const;
 
 export type MapTheme = keyof typeof MAPBOX_STYLES;

@@ -34,6 +34,10 @@ export interface MapLayoutProps {
   controls?: ReactNode;
   /** Floating action button */
   fab?: ReactNode;
+  /** Optional position override for map controls, preserving the default corner placement. */
+  controlsPositionClassName?: string;
+  /** Optional position override for the floating action button, preserving the default corner placement. */
+  fabPositionClassName?: string;
   /** Bottom sheet content */
   bottomSheet?: ReactNode;
   /** Additional CSS classes */
@@ -79,6 +83,8 @@ export function MapLayout({
   bottomOverlay,
   controls,
   fab,
+  controlsPositionClassName,
+  fabPositionClassName,
   bottomSheet,
   className,
   mapClassName,
@@ -152,7 +158,8 @@ export function MapLayout({
             'absolute top-4 left-4 z-40',
             'flex flex-col gap-2',
             'pointer-events-none',
-            safeArea && 'safe-area-inset-top safe-area-inset-left'
+            safeArea && 'safe-area-inset-top safe-area-inset-left',
+            controlsPositionClassName
           )}
         >
           <div className="pointer-events-auto">
@@ -167,7 +174,8 @@ export function MapLayout({
           className={clsx(
             'absolute bottom-24 right-4 z-40',
             'pointer-events-none',
-            safeArea && 'safe-area-inset-bottom safe-area-inset-right'
+            safeArea && 'safe-area-inset-bottom safe-area-inset-right',
+            fabPositionClassName
           )}
         >
           <div className="pointer-events-auto">

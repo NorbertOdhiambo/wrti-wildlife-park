@@ -29,6 +29,8 @@
 .tree-map__search-results small, .tree-map__nearby-list small { display: block; margin-top: 2px; color: #647269; font: 500 11px/1.3 'Plus Jakarta Sans', sans-serif; }
 
 .tree-map__controls { display: grid; overflow: hidden; border: 1px solid rgba(0, 107, 44, .12); border-radius: 15px; background: rgba(240, 251, 254, .96); box-shadow: 0 7px 18px rgba(21, 45, 34, .14); }
+.tree-map__controls-position { top: 50% !important; right: 16px; left: auto !important; transform: translateY(-50%); }
+.tree-map__locate-position { top: calc(50% + 84px); right: 16px; bottom: auto !important; transform: translateY(-50%); }
 .tree-map__controls button, .tree-map__locate { display: grid; width: 43px; height: 43px; place-items: center; border: 0; border-bottom: 1px solid #dbe8e7; background: transparent; color: #006b2c; cursor: pointer; }
 .tree-map__controls button:last-child { border-bottom: 0; }
 .tree-map__locate { border: 1px solid rgba(0, 107, 44, .12); border-radius: 50%; background: #f0fbfe; box-shadow: 0 7px 18px rgba(21, 45, 34, .16); }
@@ -45,6 +47,9 @@
 .tree-map__theme-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .tree-map__theme-options button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; border: 1px solid #c8dcd7; border-radius: 12px; background: #f9ffff; color: #3e4a3d; font: 700 12px/1 'Plus Jakarta Sans', sans-serif; cursor: pointer; }
 .tree-map__theme-options button[data-state='on'] { border-color: #006b2c; background: #006b2c; color: #fff; }
+.tree-map__layer-options { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.tree-map__layer-options li { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 40px; padding: 0 11px; border: 1px solid #d5e3df; border-radius: 12px; background: #f9ffff; color: #52625a; font: 700 12px/1.2 'Plus Jakarta Sans', sans-serif; }
+.tree-map__layer-options li span:last-child { color: #8a4d16; font-size: 10px; letter-spacing: .04em; text-transform: uppercase; }
 .tree-map__settings-note { margin-bottom: 0 !important; color: #6e5540 !important; font-weight: 500 !important; }
 
 .tree-map__status-strip { display: grid; gap: 6px; padding: 0 16px 12px; pointer-events: none; }
@@ -77,5 +82,5 @@
 .tree-map__state-message button { margin-top: 18px; padding: 11px 16px; border: 0; border-radius: 12px; background: #006b2c; color: #fff; font: 800 13px/1 'Plus Jakarta Sans', sans-serif; cursor: pointer; }
 
 .tree-map button:focus-visible, .tree-map a:focus-visible, .tree-map-page button:focus-visible { outline: 3px solid #ecb55b; outline-offset: 3px; }
-@media (min-width: 768px) { .tree-map { height: calc(100svh - 72px); } .tree-map__topbar { max-width: 480px; padding: 18px 20px 0; } .tree-map__search-results { top: 75px; right: auto; left: 20px; width: 440px; } .tree-map__sheet { bottom: calc(5.5rem + env(safe-area-inset-bottom)); border-radius: 24px !important; } .tree-map__status-strip { padding: 0 20px 18px; } }
+@media (min-width: 768px) { .tree-map { height: calc(100svh - 72px); } .tree-map__topbar { max-width: 480px; padding: 18px 20px 0; } .tree-map__search-results { top: 75px; right: auto; left: 20px; width: 440px; } .tree-map__sheet { bottom: calc(5.5rem + env(safe-area-inset-bottom)); border-radius: 24px !important; } .tree-map__status-strip { padding: 0 20px 18px; } .tree-map__controls-position { right: 22px; } .tree-map__locate-position { right: 22px; } }
 @media (prefers-reduced-motion: reduce) { .tree-map *, .tree-map *::before, .tree-map *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }

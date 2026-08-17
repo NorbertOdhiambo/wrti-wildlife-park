@@ -14,7 +14,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { BottomSheet, type BottomSheetState } from '@/design-system/components/BottomSheet';
 import { MapLayout } from '@/design-system/components/MapLayout';
 import { Icon } from '@/design-system/icons';
-import { MAPBOX_STYLES, mapboxConfig, type MapTheme } from '@/config/mapbox';
+import { MAPBOX_STYLES, MAPBOX_THEME_METADATA, mapboxConfig, type MapTheme } from '@/config/mapbox';
 import {
   isLiveTreeDataAvailable,
   treeQueryKeys,
@@ -36,11 +36,30 @@ interface MappableTree extends Tree {
 }
 
 function isMappableTree(tree: Tree): tree is MappableTree {
-  return Number.isFinite(tree.lat)
-    && Number.isFinite(tree.lng)
-    // Six verified records currently use 0,0. This is outside the remaining
-    // live collection bounds and is treated as an unmappable placeholder pair.
-    && (tree.lat !== 0 || tree.lng !== 0);
+  const { lat, lng } = tree;
+  return Number.isFinite(lat)
+    && Number.isFinite(lng)
+    && lat !== null
+    && lng !== null
+    && Math.abs(lat) <= 90
+    && Math.abs(lng) <= 180
+    && (lat !== 0 || lng !== 0);
+}
+
+function getMapAnimationDuration(): number {
+  return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 0 : 550;
+}
+
+function getMapCameraPadding(sheetState: BottomSheetState): mapboxgl.PaddingOptions {
+  const mobile = window.innerWidth < 768;
+  const bottomBySheet: Record<BottomSheetState, number> = {
+    collapsed: 40,
+    peek: mobile ? 170 : 130,
+    half: mobile ? 330 : 210,
+    full: mobile ? 470 : 290,
+  };
+
+  return { top: 92, right: 64, bottom: bottomBySheet[sheetState], left: 64 };
 }
 
 function getPrimaryImage(images: TreeImage[] | undefined): TreeImage | null {
@@ -110,6 +129,7 @@ function createMarkerElement(tree: MappableTree, selected: boolean, onSelect: (t
   marker.type = 'button';
   marker.className = `tree-map__marker${selected ? ' tree-map__marker--selected' : ''}`;
   marker.setAttribute('aria-label', `View ${tree.common_name} on the map`);
+  marker.setAttribute('aria-pressed', String(selected));
   marker.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">nature</span>';
   marker.addEventListener('click', (event) => {
     event.preventDefault();
@@ -144,15 +164,15 @@ export default function TreeMap() {
   const navigationRequested = searchParams.get('mode') === 'navigate';
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
-  const markersRef = useRef<mapboxgl.Marker[]>([]);
+  const markersRef = useRef(new Map<number, { marker: mapboxgl.Marker; element: HTMLButtonElement }>());
   const fittedMapRef = useRef(false);
-  const appliedThemeRef = useRef<MapTheme>('daylight');
+  const appliedThemeRef = useRef<MapTheme>('eco');
   const [mapState, setMapState] = useState<MapResourceState>('loading');
   const [resourceRetryKey, setResourceRetryKey] = useState(0);
   const [selectedTreeId, setSelectedTreeId] = useState<number | null>(null);
   const [sheetState, setSheetState] = useState<BottomSheetState>('peek');
   const [search, setSearch] = useState('');
-  const [mapTheme, setMapTheme] = useState<MapTheme>('daylight');
+  const [mapTheme, setMapTheme] = useState<MapTheme>('eco');
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [locationState, setLocationState] = useState<LocationState>('idle');
   const [locationMessage, setLocationMessage] = useState<string | null>(null);
@@ -161,7 +181,7 @@ export default function TreeMap() {
 
   const mappableTrees = useMemo(() => mapTreesQuery.items.filter(isMappableTree), [mapTreesQuery.items]);
   const markerSignature = useMemo(
-    () => mappableTrees.map((tree) => `${tree.id}:${tree.lat}:${tree.lng}`).join('|'),
+    () => mappableTrees.map((tree) => `${tree.id}:${tree.lat}:${tree.lng}:${tree.common_name}`).join('|'),
     [mappableTrees]
   );
   const firstMappableTree = mappableTrees[0];
@@ -198,7 +218,7 @@ export default function TreeMap() {
     if (Number.isInteger(requestedTreeId) && requestedTreeId > 0 && mappableTrees.some((tree) => tree.id === requestedTreeId)) {
       selectTree(requestedTreeId);
     }
-  }, [mappableTrees, requestedTreeId, selectTree]);
+  }, [markerSignature, requestedTreeId, selectTree]);
 
   useEffect(() => {
     if (!mapboxConfig.isConfigured || mapTreesQuery.isPending || mapTreesQuery.isError || !mappableTrees.length || !mapContainerRef.current || mapRef.current) return;
@@ -239,8 +259,8 @@ export default function TreeMap() {
     });
 
     return () => {
-      markersRef.current.forEach((marker) => marker.remove());
-      markersRef.current = [];
+      markersRef.current.forEach(({ marker }) => marker.remove());
+      markersRef.current.clear();
       map.remove();
       mapRef.current = null;
       fittedMapRef.current = false;
@@ -251,29 +271,47 @@ export default function TreeMap() {
     const map = mapRef.current;
     if (!map || mapState !== 'ready') return;
 
-    markersRef.current.forEach((marker) => marker.remove());
-    markersRef.current = mappableTrees.map((tree) => new mapboxgl.Marker({
-      element: createMarkerElement(tree, tree.id === selectedTreeId, selectTree),
-      anchor: 'bottom',
-    }).setLngLat([tree.lng, tree.lat]).addTo(map));
-  }, [mapState, markerSignature, mappableTrees, selectTree, selectedTreeId]);
+    markersRef.current.forEach(({ marker }) => marker.remove());
+    markersRef.current.clear();
+    mappableTrees.forEach((tree) => {
+      const element = createMarkerElement(tree, false, selectTree);
+      const marker = new mapboxgl.Marker({ element, anchor: 'bottom' })
+        .setLngLat([tree.lng, tree.lat])
+        .addTo(map);
+      markersRef.current.set(tree.id, { marker, element });
+    });
+  }, [mapState, markerSignature, mappableTrees, selectTree]);
+
+  useEffect(() => {
+    markersRef.current.forEach(({ element }, treeId) => {
+      const selected = treeId === selectedTreeId;
+      element.classList.toggle('tree-map__marker--selected', selected);
+      element.setAttribute('aria-pressed', String(selected));
+    });
+  }, [selectedTreeId]);
 
   useEffect(() => {
     const map = mapRef.current;
     if (!map || mapState !== 'ready' || !mappableTrees.length) return;
 
     if (selectedTree) {
-      map.flyTo({ center: [selectedTree.lng, selectedTree.lat], zoom: Math.max(map.getZoom(), 15), essential: true, duration: 550 });
+      map.flyTo({
+        center: [selectedTree.lng, selectedTree.lat],
+        zoom: Math.max(map.getZoom(), 15),
+        padding: getMapCameraPadding(sheetState),
+        essential: false,
+        duration: getMapAnimationDuration(),
+      });
       return;
     }
 
     if (!fittedMapRef.current) {
       const bounds = new mapboxgl.LngLatBounds();
       mappableTrees.forEach((tree) => bounds.extend([tree.lng, tree.lat]));
-      map.fitBounds(bounds, { padding: mapboxConfig.initialFitPadding, maxZoom: 14, duration: 0 });
+      map.fitBounds(bounds, { padding: getMapCameraPadding(sheetState), maxZoom: 14, duration: 0 });
       fittedMapRef.current = true;
     }
-  }, [mapState, markerSignature, mappableTrees, selectedTree?.id, selectedTree?.lat, selectedTree?.lng]);
+  }, [mapState, markerSignature, mappableTrees, selectedTree?.id, selectedTree?.lat, selectedTree?.lng, sheetState]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -285,7 +323,7 @@ export default function TreeMap() {
   const updateZoom = (delta: number) => {
     const map = mapRef.current;
     if (!map) return;
-    map.easeTo({ zoom: Math.min(mapboxConfig.maxZoom, Math.max(mapboxConfig.minZoom, map.getZoom() + delta)), duration: 180 });
+    map.easeTo({ zoom: Math.min(mapboxConfig.maxZoom, Math.max(mapboxConfig.minZoom, map.getZoom() + delta)), duration: getMapAnimationDuration() });
   };
 
   const locateUser = () => {
@@ -299,7 +337,7 @@ export default function TreeMap() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { longitude, latitude } = position.coords;
-        mapRef.current?.flyTo({ center: [longitude, latitude], zoom: 15, essential: true, duration: 550 });
+        mapRef.current?.flyTo({ center: [longitude, latitude], zoom: 15, essential: false, duration: getMapAnimationDuration() });
         setLocationState('located');
         setLocationMessage('Map centred on your current location.');
       },
@@ -380,23 +418,29 @@ export default function TreeMap() {
             <button type="button" aria-label="Open map settings" aria-expanded={settingsOpen} onClick={() => setSettingsOpen((open) => !open)}><Icon name="layers" size={22} /></button>
           </div>
         )}
+        controlsPositionClassName="tree-map__controls-position"
         fab={(
           <button type="button" className="tree-map__locate" aria-label="Use my location" onClick={locateUser} disabled={locationState === 'requesting'}>
             <Icon name={locationState === 'requesting' ? 'loading' : 'location'} size={23} />
           </button>
         )}
+        fabPositionClassName="tree-map__locate-position"
         centerOverlay={settingsOpen ? (
           <section className="tree-map__settings" role="dialog" aria-modal="false" aria-label="Map settings">
             <div className="tree-map__settings-heading"><span><Icon name="layers" size={21} /> Map appearance</span><button type="button" aria-label="Close map settings" onClick={() => setSettingsOpen(false)}><Icon name="close" size={20} /></button></div>
-            <p>Adaptive Environmental Theme</p>
+            <p>Map style</p>
             <div className="tree-map__theme-options" role="radiogroup" aria-label="Map theme">
-              {(['daylight', 'dusk'] as const).map((theme) => (
+              {(Object.keys(MAPBOX_STYLES) as MapTheme[]).map((theme) => (
                 <button key={theme} type="button" role="radio" aria-checked={mapTheme === theme} data-state={mapTheme === theme ? 'on' : 'off'} onClick={() => setMapTheme(theme)}>
-                  <Icon name={theme === 'daylight' ? 'sun' : 'moon'} size={19} />{theme === 'daylight' ? 'Daylight' : 'Dusk'}
+                  <Icon name={MAPBOX_THEME_METADATA[theme].icon} size={19} />{MAPBOX_THEME_METADATA[theme].label}
                 </button>
               ))}
             </div>
-            <p className="tree-map__settings-note">Live Tree locations are shown. Conservation, specimen, transport, and AR overlays are not available in the current data model.</p>
+            <p>Map layers</p>
+            <ul className="tree-map__layer-options" aria-label="Unavailable map layers">
+              {['Ecological Zones', 'Walking Paths', 'Cycling Routes'].map((layer) => <li key={layer}><span>{layer}</span><span>Unavailable</span></li>)}
+            </ul>
+            <p className="tree-map__settings-note">Live Tree locations are shown. These layers need verified geographic data before they can be enabled.</p>
           </section>
         ) : undefined}
         bottomOverlay={(

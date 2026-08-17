@@ -156,3 +156,15 @@
 - [x] Implement approved exploration/navigation state only where live routing/path data supports it; provide explicit graceful limitations where it does not.
 - [x] Validate live marker data, mobile/tablet/desktop layouts, keyboard access, motion, location/offline/map-resource fallback states, tests, TypeScript, production build, and active browser console.
 - [x] Document verified data mappings, supported behavior, technical limitations, validation evidence, update this checklist, save a checkpoint, and report the Map phase result.
+
+## Map Live Implementation Verification & Fidelity Audit
+
+- [x] Read the complete verification brief and establish the required data, interaction, visual-fidelity, responsiveness, performance, and failure-state checks without expanding Map scope.
+- [x] Audit all 58 live Tree records into an explicit diagnostic table showing ID, name, coordinates, mappability, and the precise reason for every excluded marker.
+- [x] Verify the Map query uses the complete repository-backed live collection, stable real Tree IDs, and correct `lat,lng` to `[lng,lat]` conversion without pagination, hardcoding, or duplicate data sources.
+- [x] Verify marker selection, selected-marker treatment, selected preview, BottomSheet state persistence, existing Tree Detail handoff, and selection clearing using real records.
+- [x] Verify the Map reuses the established BottomSheet and Tree-preview/media architecture; correct only documented alignment issues.
+- [x] Verify live search, Tree image landscape/portrait/missing states, browser geolocation behavior, Map state handling, source-approved settings/layer semantics, and Stitch fidelity.
+- [x] Verify actual mobile, tablet, and desktop interaction behaviour, including the approved desktop panel arrangement, safe areas, camera padding, controls, and touch targets.
+- [x] Audit Mapbox lifecycle, query stability, marker lifecycle, event cleanup, camera updates, and genuine configuration/query/GPS/offline error handling; correct verified issues only.
+- [x] Run focused regression, accessibility, console, TypeScript, tests, and production-build checks; document the diagnostic data, findings, corrections, limitations, and checkpoint result.
