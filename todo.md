@@ -180,3 +180,13 @@
 - [x] Preserve live Supabase Tree data, stable Tree IDs, coordinate adapter, direct Mapbox GL integration, selected Tree camera behavior, search, media fallback, Tree Detail handoff, settings, location recovery, and no fabricated geographic data.
 - [x] Validate real marker count derivation, selected/unselected states, search-to-preview flow, desktop side-panel behavior, mobile BottomSheet behavior, responsive camera clearance, keyboard access, reduced motion, live error recovery, screenshots, TypeScript, tests, and production build.
 - [x] Document the reimplementation scope, Mapbox package/version/token safety, data behavior, visual corrections, responsive states, limitations, validation evidence, update this checklist, save a checkpoint, and deliver the Map result.
+
+## WRTI Map Canvas Focus Pass
+
+- [x] Read the complete Map Canvas Focus Pass requirements, the authoritative mobile and desktop Stitch HTML, and the current Map implementation without changing the established live data boundary.
+- [x] Verify direct `mapbox-gl` usage, package version, canonical `VITE_MAPBOX_ACCESS_TOKEN` configuration, live coordinate validation, and existing Map lifecycle without exposing credentials.
+- [x] Temporarily defer mobile BottomSheet rendering through a clear Map-level boundary while preserving all BottomSheet components, types, states, safe-area support, and future re-enable path.
+- [x] Refine the source-faithful Map canvas, live Tree markers, selected-marker state, search, controls, geolocation recovery, camera behavior, and desktop Discovery rail without fabricating spatial data or adding unsupported features.
+- [x] Define and implement source-supported desktop, tablet, and mobile compositions; preserve the desktop left Discovery rail only where the authoritative HTML specifies it.
+- [x] Validate live marker derivation, Mapbox lifecycle, marker/search/selection flows, location handling, keyboard and reduced-motion behavior, mobile/tablet/desktop screenshots, approved route regressions, TypeScript, tests, and production build.
+- [x] Document exact Mapbox/data/responsive/deferred behavior and remaining visual deviations, complete the checklist, save a checkpoint, and report only the Map Canvas Focus Pass as complete.

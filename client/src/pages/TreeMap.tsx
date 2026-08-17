@@ -2,8 +2,10 @@
  * WRTI Live Tree Map — Mapbox-first exploration surface.
  * Design fidelity reminder: maintain the Stitch map-first hierarchy: a real
  * outdoor map, pale floating controls, botanical-green Tree markers, and a
- * restrained discovery BottomSheet. All Tree content remains live and flows
- * through the existing Tree feature boundary.
+ * restrained discovery rail. The mobile Tree-preview BottomSheet is temporarily
+ * deferred through a local rendering flag; its reusable architecture and state
+ * remain intact. All Tree content remains live and flows through the existing
+ * Tree feature boundary.
  */
 
 import { useQueries } from '@tanstack/react-query';
@@ -26,6 +28,13 @@ import type { Tree, TreeImage, TreeListInput } from '@/features/trees';
 import './TreeMap.css';
 
 const MAP_PAGE_SIZE = 50;
+
+/**
+ * Deliberate temporary scope boundary for the Map Canvas Focus Pass. This keeps
+ * BottomSheet state and the reusable sheet render tree ready for a later phase
+ * without allowing a selected Tree to cover the mobile map canvas today.
+ */
+const MAP_MOBILE_TREE_PREVIEW_ENABLED = false;
 
 type MapResourceState = 'loading' | 'ready' | 'unavailable';
 type LocationState = 'idle' | 'requesting' | 'located' | 'unavailable';
@@ -63,7 +72,7 @@ function getMapCameraPadding(sheetState: BottomSheetState): mapboxgl.PaddingOpti
   return {
     top: desktop ? 108 : 92,
     right: desktop ? 88 : 64,
-    bottom: desktop ? 72 : bottomBySheet[sheetState],
+    bottom: desktop ? 72 : (MAP_MOBILE_TREE_PREVIEW_ENABLED ? bottomBySheet[sheetState] : 54),
     left: desktop ? Math.min(464, window.innerWidth * 0.31) + 46 : 64,
   };
 }
@@ -142,6 +151,15 @@ function createMarkerElement(tree: MappableTree, selected: boolean, onSelect: (t
     event.stopPropagation();
     onSelect(tree.id);
   });
+  return marker;
+}
+
+function createVisitorLocationElement(): HTMLSpanElement {
+  const marker = document.createElement('span');
+  marker.className = 'tree-map__visitor-location';
+  marker.setAttribute('role', 'img');
+  marker.setAttribute('aria-label', 'Your current location');
+  marker.innerHTML = '<span class="tree-map__visitor-location-dot" aria-hidden="true"></span>';
   return marker;
 }
 
@@ -246,6 +264,7 @@ export default function TreeMap() {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markersRef = useRef(new Map<number, { marker: mapboxgl.Marker; element: HTMLButtonElement }>());
+  const visitorLocationMarkerRef = useRef<mapboxgl.Marker | null>(null);
   const fittedMapRef = useRef(false);
   const appliedThemeRef = useRef<MapTheme>('eco');
   const [mapState, setMapState] = useState<MapResourceState>('loading');
@@ -342,6 +361,8 @@ export default function TreeMap() {
     return () => {
       markersRef.current.forEach(({ marker }) => marker.remove());
       markersRef.current.clear();
+      visitorLocationMarkerRef.current?.remove();
+      visitorLocationMarkerRef.current = null;
       map.remove();
       mapRef.current = null;
       fittedMapRef.current = false;
@@ -407,6 +428,24 @@ export default function TreeMap() {
     map.easeTo({ zoom: Math.min(mapboxConfig.maxZoom, Math.max(mapboxConfig.minZoom, map.getZoom() + delta)), duration: getMapAnimationDuration() });
   };
 
+  const setVisitorLocation = useCallback((longitude: number, latitude: number) => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    const coordinates: [number, number] = [longitude, latitude];
+    if (visitorLocationMarkerRef.current) {
+      visitorLocationMarkerRef.current.setLngLat(coordinates);
+      return;
+    }
+
+    visitorLocationMarkerRef.current = new mapboxgl.Marker({
+      element: createVisitorLocationElement(),
+      anchor: 'center',
+    })
+      .setLngLat(coordinates)
+      .addTo(map);
+  }, []);
+
   const locateUser = () => {
     if (!navigator.geolocation) {
       setLocationState('unavailable');
@@ -418,6 +457,7 @@ export default function TreeMap() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { longitude, latitude } = position.coords;
+        setVisitorLocation(longitude, latitude);
         mapRef.current?.flyTo({ center: [longitude, latitude], zoom: 15, essential: false, duration: getMapAnimationDuration() });
         setLocationState('located');
         setLocationMessage('Map centred on your current location.');
@@ -476,7 +516,7 @@ export default function TreeMap() {
               <input
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search live Trees"
+                placeholder="Search species or habitats..."
                 aria-label="Search live Trees on the map"
               />
               {search ? <button type="button" aria-label="Clear Tree search" onClick={() => setSearch('')}><Icon name="close" size={19} /></button> : null}
@@ -496,11 +536,9 @@ export default function TreeMap() {
         sideOverlay={(
           <aside className="tree-map__desktop-rail" aria-label="Tree discovery information">
             <header className="tree-map__rail-brand">
-              <span><Icon name="tree" size={17} /> WRTI Wildlife Park</span>
               <h1>Discovery</h1>
               <p>Explore species and habitats near you.</p>
             </header>
-            <div className="tree-map__rail-rule" />
             <section className="tree-map__rail-section" aria-label={selectedTree ? 'Selected Tree information' : 'Nearby Tree discoveries'}>
               <TreeDiscoveryContent
                 selectedTree={selectedTree}
@@ -511,23 +549,29 @@ export default function TreeMap() {
                 showHeading={false}
               />
             </section>
-            <footer className="tree-map__rail-footer"><Icon name="info" size={16} /> {mappableTrees.length} verified live Tree locations</footer>
           </aside>
         )}
         controls={(
           <div className="tree-map__controls" aria-label="Map controls">
-            <button type="button" aria-label="Zoom in" onClick={() => updateZoom(1)}><Icon name="add" size={22} /></button>
-            <button type="button" aria-label="Zoom out" onClick={() => updateZoom(-1)}><Icon name="remove" size={22} /></button>
-            <button type="button" aria-label="Open map settings" aria-expanded={settingsOpen} onClick={() => setSettingsOpen((open) => !open)}><Icon name="layers" size={22} /></button>
+            <button
+              type="button"
+              className="tree-map__layers-control"
+              aria-label="Open map settings"
+              aria-expanded={settingsOpen}
+              onClick={() => setSettingsOpen((open) => !open)}
+            >
+              <Icon name="layers" size={22} />
+            </button>
+            <div className="tree-map__zoom-controls" aria-label="Zoom controls">
+              <button type="button" aria-label="Zoom in" onClick={() => updateZoom(1)}><Icon name="add" size={22} /></button>
+              <button type="button" aria-label="Zoom out" onClick={() => updateZoom(-1)}><Icon name="remove" size={22} /></button>
+            </div>
+            <button type="button" className="tree-map__locate" aria-label="Use my location" onClick={locateUser} disabled={locationState === 'requesting'}>
+              <Icon name={locationState === 'requesting' ? 'loading' : 'location'} size={23} />
+            </button>
           </div>
         )}
         controlsPositionClassName="tree-map__controls-position"
-        fab={(
-          <button type="button" className="tree-map__locate" aria-label="Use my location" onClick={locateUser} disabled={locationState === 'requesting'}>
-            <Icon name={locationState === 'requesting' ? 'loading' : 'location'} size={23} />
-          </button>
-        )}
-        fabPositionClassName="tree-map__locate-position"
         centerOverlay={settingsOpen ? (
           <section className="tree-map__settings" role="dialog" aria-modal="false" aria-label="Map settings">
             <div className="tree-map__settings-heading"><span><Icon name="layers" size={21} /> Map appearance</span><button type="button" aria-label="Close map settings" onClick={() => setSettingsOpen(false)}><Icon name="close" size={20} /></button></div>
@@ -546,14 +590,13 @@ export default function TreeMap() {
             <p className="tree-map__settings-note">Live Tree locations are shown. These layers need verified geographic data before they can be enabled.</p>
           </section>
         ) : undefined}
-        bottomOverlay={(
+        bottomOverlay={navigationRequested || locationMessage ? (
           <div className="tree-map__status-strip" aria-live="polite">
-            <span><Icon name="tree" size={17} /> {mappableTrees.length} live Tree locations</span>
             {navigationRequested && selectedTree ? <span><Icon name="info" size={17} /> Route guidance needs mapped path data; this Tree is focused on the map.</span> : null}
             {locationMessage ? <span className={locationState === 'unavailable' ? 'tree-map__status-strip--warning' : ''}><Icon name={locationState === 'unavailable' ? 'locationOff' : 'location'} size={17} /> {locationMessage}</span> : null}
           </div>
-        )}
-        bottomSheet={(
+        ) : undefined}
+        bottomSheet={MAP_MOBILE_TREE_PREVIEW_ENABLED ? (
           <BottomSheet
             state={sheetState}
             onStateChange={setSheetState}
@@ -577,7 +620,7 @@ export default function TreeMap() {
               onSheetStateChange={setSheetState}
             />
           </BottomSheet>
-        )}
+        ) : undefined}
       />
       {mapState === 'loading' ? <div className="tree-map__loading" role="status"><Icon name="loading" size={24} /> Loading live park map…</div> : null}
       {mapState === 'unavailable' ? <MapStateMessage title="Map resource unavailable" copy="The live map could not load. Check your connection and try again." onRetry={retryMap} /> : null}

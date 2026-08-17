@@ -28,17 +28,21 @@
 .tree-map__search-results strong, .tree-map__nearby-list strong { display: block; color: #131d1f; font: 700 13px/1.3 'Plus Jakarta Sans', sans-serif; }
 .tree-map__search-results small, .tree-map__nearby-list small { display: block; margin-top: 2px; color: #647269; font: 500 11px/1.3 'Plus Jakarta Sans', sans-serif; }
 
-.tree-map__controls { display: grid; overflow: hidden; border: 1px solid rgba(0, 107, 44, .12); border-radius: 15px; background: rgba(240, 251, 254, .96); box-shadow: 0 7px 18px rgba(21, 45, 34, .14); }
+.tree-map__controls { display: grid; gap: 8px; }
 .tree-map__controls-position { top: 50% !important; right: 16px; left: auto !important; transform: translateY(-50%); }
-.tree-map__locate-position { top: calc(50% + 84px); right: 16px; bottom: auto !important; transform: translateY(-50%); }
-.tree-map__controls button, .tree-map__locate { display: grid; width: 43px; height: 43px; place-items: center; border: 0; border-bottom: 1px solid #dbe8e7; background: transparent; color: #006b2c; cursor: pointer; }
-.tree-map__controls button:last-child { border-bottom: 0; }
+.tree-map__layers-control, .tree-map__zoom-controls, .tree-map__locate { border: 1px solid rgba(0, 107, 44, .12); background: rgba(240, 251, 254, .96); box-shadow: 0 7px 18px rgba(21, 45, 34, .14); }
+.tree-map__layers-control, .tree-map__locate { display: grid; width: 43px; height: 43px; place-items: center; border-radius: 50%; color: #006b2c; cursor: pointer; }
+.tree-map__zoom-controls { display: grid; overflow: hidden; border-radius: 15px; }
+.tree-map__zoom-controls button { display: grid; width: 43px; height: 43px; place-items: center; border: 0; border-bottom: 1px solid #dbe8e7; background: transparent; color: #006b2c; cursor: pointer; }
+.tree-map__zoom-controls button:last-child { border-bottom: 0; }
 .tree-map__locate { border: 1px solid rgba(0, 107, 44, .12); border-radius: 50%; background: #f0fbfe; box-shadow: 0 7px 18px rgba(21, 45, 34, .16); }
 .tree-map__locate:disabled { opacity: .6; cursor: wait; }
 
 .tree-map__marker { display: grid; width: 34px; height: 34px; place-items: center; border: 3px solid #f0fbfe; border-radius: 50% 50% 50% 0; background: #006b2c; color: #f0fbfe; box-shadow: 0 4px 10px rgba(0, 56, 26, .3); transform: rotate(-45deg); cursor: pointer; }
 .tree-map__marker > span { transform: rotate(45deg); font-size: 19px; }
-.tree-map__marker--selected { width: 42px; height: 42px; background: #ecb55b; color: #132a1d; box-shadow: 0 7px 14px rgba(80, 53, 10, .32); }
+.tree-map__marker--selected { width: 42px; height: 42px; border-color: #a4f5b6; background: #1a6c3b; color: #fff; box-shadow: 0 7px 14px rgba(0, 70, 29, .34); }
+.tree-map__visitor-location { display: grid; width: 30px; height: 30px; place-items: center; border: 2px solid rgba(240, 251, 254, .96); border-radius: 50%; background: rgba(164, 245, 182, .34); box-shadow: 0 4px 12px rgba(0, 75, 31, .28); pointer-events: none; }
+.tree-map__visitor-location-dot { width: 11px; height: 11px; border: 2px solid #f0fbfe; border-radius: 50%; background: #006b2c; }
 
 .tree-map__settings { width: min(330px, calc(100vw - 32px)); padding: 18px; border: 1px solid rgba(0, 107, 44, .14); border-radius: 20px; background: rgba(240, 251, 254, .98); box-shadow: 0 18px 44px rgba(21, 45, 34, .22); }
 .tree-map__settings-heading, .tree-map__sheet-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
@@ -85,36 +89,30 @@
 
 .tree-map button:focus-visible, .tree-map a:focus-visible, .tree-map-page button:focus-visible { outline: 3px solid #ecb55b; outline-offset: 3px; }
 @media (min-width: 768px) {
-  .tree-map { height: calc(100svh - 72px); }
-  .tree-map__topbar { max-width: 480px; padding: 18px 20px 0; }
-  .tree-map__search-results { top: 75px; right: auto; left: 20px; width: 440px; }
-  .tree-map__sheet { bottom: calc(5.5rem + env(safe-area-inset-bottom)); border-radius: 24px !important; }
-  .tree-map__status-strip { padding: 0 20px 18px; }
-  .tree-map__controls-position { right: 22px; }
-  .tree-map__locate-position { right: 22px; }
-}
-
-@media (min-width: 1024px) {
-  .tree-map { background: #eff9f8; }
-  .tree-map__map-region { left: min(29rem, 31vw) !important; width: calc(100% - min(29rem, 31vw)) !important; }
-  .tree-map__topbar { max-width: 560px; margin-left: min(29rem, 31vw); padding: 24px 28px 0; }
+  .tree-map { --tree-map-rail-width: 400px; height: calc(100svh - 72px); background: #eff9f8; }
+  .tree-map__map-region { left: var(--tree-map-rail-width) !important; width: calc(100% - var(--tree-map-rail-width)) !important; }
+  .tree-map__topbar { width: min(560px, calc(100vw - var(--tree-map-rail-width) - 32px)); max-width: none; margin-left: var(--tree-map-rail-width); padding: 24px 0 0 28px; }
   .tree-map__search { min-height: 54px; border-radius: 18px; }
-  .tree-map__search-results { top: 87px; left: calc(min(29rem, 31vw) + 28px); width: min(500px, calc(100vw - min(29rem, 31vw) - 84px)); }
-  .tree-map__controls-position { top: 50% !important; right: 30px; }
-  .tree-map__locate-position { top: calc(50% + 88px); right: 30px; }
-  .tree-map__status-strip { padding: 0 30px 24px calc(min(29rem, 31vw) + 28px); }
+  .tree-map__search-results { top: 87px; left: calc(var(--tree-map-rail-width) + 28px); width: min(500px, calc(100vw - var(--tree-map-rail-width) - 56px)); }
+  .tree-map__status-strip { padding: 0 24px 24px calc(var(--tree-map-rail-width) + 28px); }
+  .tree-map__controls-position { right: 24px; }
+  .tree-map__zoom-controls { order: 1; }
+  .tree-map__locate { order: 2; }
+  .tree-map__layers-control { order: 3; }
   .tree-map__sheet { display: none !important; }
-  .tree-map__desktop-rail { position: absolute; z-index: 55; top: 0; bottom: 0; left: 0; display: flex; width: min(29rem, 31vw); min-width: 368px; flex-direction: column; padding: 30px 26px 24px; border-right: 1px solid rgba(0, 107, 44, .12); background: rgba(240, 251, 254, .98); box-shadow: 18px 0 42px rgba(21, 45, 34, .14); }
-  .tree-map__rail-brand > span, .tree-map__rail-eyebrow { display: inline-flex; align-items: center; gap: 7px; color: #006b2c; font: 800 10px/1.3 'Plus Jakarta Sans', sans-serif; letter-spacing: .12em; text-transform: uppercase; }
-  .tree-map__rail-brand h1 { margin: 10px 0 8px; color: #132a1d; font: 700 clamp(29px, 2.5vw, 39px)/.98 'Libre Caslon Text', serif; }
-  .tree-map__rail-brand p { max-width: 290px; margin: 0; color: #52625a; font: 500 13px/1.55 'Plus Jakarta Sans', sans-serif; }
-  .tree-map__rail-rule { height: 1px; margin: 26px 0 20px; background: #d4e6df; }
-  .tree-map__rail-section { min-height: 0; overflow-y: auto; padding-right: 3px; }
+  .tree-map__desktop-rail { position: absolute; z-index: 55; top: 0; bottom: 0; left: 0; display: flex; width: var(--tree-map-rail-width); flex-direction: column; padding: 24px; border-right: 1px solid rgba(0, 107, 44, .12); background: rgba(240, 251, 254, .98); box-shadow: 18px 0 42px rgba(21, 45, 34, .14); }
+  .tree-map__rail-brand { padding-bottom: 16px; border-bottom: 1px solid rgba(110, 123, 108, .2); }
+  .tree-map__rail-brand h1 { margin: 0 0 8px; color: #132a1d; font: 700 32px/1.25 'Libre Caslon Text', serif; }
+  .tree-map__rail-brand p { margin: 0; color: #3e4a3d; font: 500 16px/1.5 'Plus Jakarta Sans', sans-serif; }
+  .tree-map__rail-section { min-height: 0; overflow-y: auto; padding-top: 20px; padding-right: 3px; }
   .tree-map__rail-section .tree-map__nearby-list { margin-top: 12px; }
   .tree-map__rail-section .tree-map__nearby-list button { min-height: 66px; padding: 12px 3px; }
   .tree-map__rail-section .tree-map__selected-card { grid-template-columns: 132px minmax(0, 1fr); margin-top: 12px; padding: 12px; border-radius: 18px; }
   .tree-map__rail-section .tree-map__selected-card img, .tree-map__rail-section .tree-map__selected-media-fallback { width: 132px; height: 166px; border-radius: 13px; }
   .tree-map__rail-section .tree-map__selected-card h2 { margin-top: 9px; font-size: 22px; }
-  .tree-map__rail-footer { display: flex; align-items: flex-start; gap: 8px; margin-top: auto; padding-top: 19px; color: #647269; font: 600 11px/1.45 'Plus Jakarta Sans', sans-serif; }
+}
+
+@media (min-width: 1024px) {
+  .tree-map__controls-position { right: 30px; }
 }
 @media (prefers-reduced-motion: reduce) { .tree-map *, .tree-map *::before, .tree-map *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
