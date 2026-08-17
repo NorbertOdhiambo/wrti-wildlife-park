@@ -168,3 +168,15 @@
 - [x] Verify actual mobile, tablet, and desktop interaction behaviour, including the approved desktop panel arrangement, safe areas, camera padding, controls, and touch targets.
 - [x] Audit Mapbox lifecycle, query stability, marker lifecycle, event cleanup, camera updates, and genuine configuration/query/GPS/offline error handling; correct verified issues only.
 - [x] Run focused regression, accessibility, console, TypeScript, tests, and production-build checks; document the diagnostic data, findings, corrections, limitations, and checkpoint result.
+
+## WRTI Map Visual / UX Reimplementation
+
+- [x] Complete the major Map reimplementation brief and inspect the supplied Map Stitch source, code, visual states, assets, responsive behavior, and current Mapbox package/configuration boundary.
+- [x] Confirm direct `mapbox-gl` usage, installed version, canonical runtime token variable, runtime token presence, and absence of hardcoded token values without exposing credentials.
+- [x] Reconfirm the live 58-record Tree collection and data-driven mappable subset without hardcoding a marker count or excluding valid coordinates.
+- [x] Audit the existing reusable TreeCard preview variant, MapLayout, BottomSheet desktop-side-panel support, and current TreeMap implementation before changing the responsive composition.
+- [x] Rebuild the Map visual system from the authoritative Stitch source: WRTI control styling, custom marker hierarchy, search, environmental treatment, selected Tree preview, and source-aligned motion.
+- [x] Implement an intentional desktop Map composition with a dedicated responsive left-side Tree/Map information rail that reflows the map canvas, as specified by the authoritative desktop HTML; retain the shared BottomSheet architecture for mobile only.
+- [x] Preserve live Supabase Tree data, stable Tree IDs, coordinate adapter, direct Mapbox GL integration, selected Tree camera behavior, search, media fallback, Tree Detail handoff, settings, location recovery, and no fabricated geographic data.
+- [x] Validate real marker count derivation, selected/unselected states, search-to-preview flow, desktop side-panel behavior, mobile BottomSheet behavior, responsive camera clearance, keyboard access, reduced motion, live error recovery, screenshots, TypeScript, tests, and production build.
+- [x] Document the reimplementation scope, Mapbox package/version/token safety, data behavior, visual corrections, responsive states, limitations, validation evidence, update this checklist, save a checkpoint, and deliver the Map result.

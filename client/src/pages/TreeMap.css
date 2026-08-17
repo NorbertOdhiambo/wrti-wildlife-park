@@ -75,6 +75,8 @@
 .tree-map__selected-card p { margin: 0; color: #647269; font: italic 500 12px/1.3 'Plus Jakarta Sans', sans-serif; }
 .tree-map__selected-card a { display: inline-flex; align-items: center; gap: 4px; margin-top: 11px; color: #006b2c; font: 800 12px/1.2 'Plus Jakarta Sans', sans-serif; }
 
+.tree-map__desktop-rail { display: none; }
+
 .tree-map__loading { position: fixed; right: 16px; bottom: 96px; z-index: 60; display: inline-flex; align-items: center; gap: 7px; padding: 10px 12px; border-radius: 12px; background: #f0fbfe; box-shadow: 0 8px 18px rgba(21, 45, 34, .18); color: #006b2c; font: 700 12px/1.2 'Plus Jakarta Sans', sans-serif; }
 .tree-map__state-message { display: grid; place-items: center; min-height: calc(100svh - 144px); padding: 36px 24px; text-align: center; color: #006b2c; }
 .tree-map__state-message h1 { margin: 14px 0 6px; color: #132a1d; font: 700 29px/1.05 'Libre Caslon Text', serif; }
@@ -82,5 +84,37 @@
 .tree-map__state-message button { margin-top: 18px; padding: 11px 16px; border: 0; border-radius: 12px; background: #006b2c; color: #fff; font: 800 13px/1 'Plus Jakarta Sans', sans-serif; cursor: pointer; }
 
 .tree-map button:focus-visible, .tree-map a:focus-visible, .tree-map-page button:focus-visible { outline: 3px solid #ecb55b; outline-offset: 3px; }
-@media (min-width: 768px) { .tree-map { height: calc(100svh - 72px); } .tree-map__topbar { max-width: 480px; padding: 18px 20px 0; } .tree-map__search-results { top: 75px; right: auto; left: 20px; width: 440px; } .tree-map__sheet { bottom: calc(5.5rem + env(safe-area-inset-bottom)); border-radius: 24px !important; } .tree-map__status-strip { padding: 0 20px 18px; } .tree-map__controls-position { right: 22px; } .tree-map__locate-position { right: 22px; } }
+@media (min-width: 768px) {
+  .tree-map { height: calc(100svh - 72px); }
+  .tree-map__topbar { max-width: 480px; padding: 18px 20px 0; }
+  .tree-map__search-results { top: 75px; right: auto; left: 20px; width: 440px; }
+  .tree-map__sheet { bottom: calc(5.5rem + env(safe-area-inset-bottom)); border-radius: 24px !important; }
+  .tree-map__status-strip { padding: 0 20px 18px; }
+  .tree-map__controls-position { right: 22px; }
+  .tree-map__locate-position { right: 22px; }
+}
+
+@media (min-width: 1024px) {
+  .tree-map { background: #eff9f8; }
+  .tree-map__map-region { left: min(29rem, 31vw) !important; width: calc(100% - min(29rem, 31vw)) !important; }
+  .tree-map__topbar { max-width: 560px; margin-left: min(29rem, 31vw); padding: 24px 28px 0; }
+  .tree-map__search { min-height: 54px; border-radius: 18px; }
+  .tree-map__search-results { top: 87px; left: calc(min(29rem, 31vw) + 28px); width: min(500px, calc(100vw - min(29rem, 31vw) - 84px)); }
+  .tree-map__controls-position { top: 50% !important; right: 30px; }
+  .tree-map__locate-position { top: calc(50% + 88px); right: 30px; }
+  .tree-map__status-strip { padding: 0 30px 24px calc(min(29rem, 31vw) + 28px); }
+  .tree-map__sheet { display: none !important; }
+  .tree-map__desktop-rail { position: absolute; z-index: 55; top: 0; bottom: 0; left: 0; display: flex; width: min(29rem, 31vw); min-width: 368px; flex-direction: column; padding: 30px 26px 24px; border-right: 1px solid rgba(0, 107, 44, .12); background: rgba(240, 251, 254, .98); box-shadow: 18px 0 42px rgba(21, 45, 34, .14); }
+  .tree-map__rail-brand > span, .tree-map__rail-eyebrow { display: inline-flex; align-items: center; gap: 7px; color: #006b2c; font: 800 10px/1.3 'Plus Jakarta Sans', sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+  .tree-map__rail-brand h1 { margin: 10px 0 8px; color: #132a1d; font: 700 clamp(29px, 2.5vw, 39px)/.98 'Libre Caslon Text', serif; }
+  .tree-map__rail-brand p { max-width: 290px; margin: 0; color: #52625a; font: 500 13px/1.55 'Plus Jakarta Sans', sans-serif; }
+  .tree-map__rail-rule { height: 1px; margin: 26px 0 20px; background: #d4e6df; }
+  .tree-map__rail-section { min-height: 0; overflow-y: auto; padding-right: 3px; }
+  .tree-map__rail-section .tree-map__nearby-list { margin-top: 12px; }
+  .tree-map__rail-section .tree-map__nearby-list button { min-height: 66px; padding: 12px 3px; }
+  .tree-map__rail-section .tree-map__selected-card { grid-template-columns: 132px minmax(0, 1fr); margin-top: 12px; padding: 12px; border-radius: 18px; }
+  .tree-map__rail-section .tree-map__selected-card img, .tree-map__rail-section .tree-map__selected-media-fallback { width: 132px; height: 166px; border-radius: 13px; }
+  .tree-map__rail-section .tree-map__selected-card h2 { margin-top: 9px; font-size: 22px; }
+  .tree-map__rail-footer { display: flex; align-items: flex-start; gap: 8px; margin-top: auto; padding-top: 19px; color: #647269; font: 600 11px/1.45 'Plus Jakarta Sans', sans-serif; }
+}
 @media (prefers-reduced-motion: reduce) { .tree-map *, .tree-map *::before, .tree-map *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }

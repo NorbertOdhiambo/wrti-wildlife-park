@@ -52,6 +52,7 @@ function getMapAnimationDuration(): number {
 
 function getMapCameraPadding(sheetState: BottomSheetState): mapboxgl.PaddingOptions {
   const mobile = window.innerWidth < 768;
+  const desktop = window.innerWidth >= 1024;
   const bottomBySheet: Record<BottomSheetState, number> = {
     collapsed: 40,
     peek: mobile ? 170 : 130,
@@ -59,7 +60,12 @@ function getMapCameraPadding(sheetState: BottomSheetState): mapboxgl.PaddingOpti
     full: mobile ? 470 : 290,
   };
 
-  return { top: 92, right: 64, bottom: bottomBySheet[sheetState], left: 64 };
+  return {
+    top: desktop ? 108 : 92,
+    right: desktop ? 88 : 64,
+    bottom: desktop ? 72 : bottomBySheet[sheetState],
+    left: desktop ? Math.min(464, window.innerWidth * 0.31) + 46 : 64,
+  };
 }
 
 function getPrimaryImage(images: TreeImage[] | undefined): TreeImage | null {
@@ -155,6 +161,81 @@ function MapStateMessage({
       <p>{copy}</p>
       {onRetry ? <button type="button" onClick={onRetry}>Try again</button> : null}
     </section>
+  );
+}
+
+function TreeDiscoveryContent({
+  selectedTree,
+  selectedImage,
+  selectedImageUrl,
+  mappableTrees,
+  onSelect,
+  showHeading = true,
+  showSheetSnaps = false,
+  sheetState,
+  onSheetStateChange,
+}: {
+  selectedTree: MappableTree | null;
+  selectedImage: TreeImage | null;
+  selectedImageUrl: string | null;
+  mappableTrees: MappableTree[];
+  onSelect: (treeId: number) => void;
+  showHeading?: boolean;
+  showSheetSnaps?: boolean;
+  sheetState?: BottomSheetState;
+  onSheetStateChange?: (state: BottomSheetState) => void;
+}) {
+  return (
+    <>
+      {showHeading ? (
+        <div className="tree-map__sheet-heading">
+          <div>
+            <span>{selectedTree ? 'Selected Tree' : 'Nearby Discoveries'}</span>
+            <h1>{selectedTree ? selectedTree.common_name : 'Explore live Tree locations'}</h1>
+          </div>
+          {showSheetSnaps && sheetState && onSheetStateChange ? (
+            <div className="tree-map__sheet-snaps" aria-label="Panel size">
+              {(['collapsed', 'peek', 'half', 'full'] as BottomSheetState[]).map((state) => (
+                <button
+                  key={state}
+                  type="button"
+                  aria-label={`Set panel to ${state}`}
+                  aria-pressed={sheetState === state}
+                  onClick={() => onSheetStateChange(state)}
+                />
+              ))}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+      {selectedTree ? (
+        <article className="tree-map__selected-card">
+          {selectedImageUrl ? (
+            <img src={selectedImageUrl} alt={selectedImage?.caption ?? `${selectedTree.common_name} in WRTI Wildlife Park`} />
+          ) : (
+            <div className="tree-map__selected-media-fallback" role="img" aria-label={`Image for ${selectedTree.common_name} is unavailable`}>
+              <Icon name="tree" size={28} />
+            </div>
+          )}
+          <div>
+            <span className="tree-map__family-chip">{selectedTree.family ?? 'Park Tree'}</span>
+            <h2>{selectedTree.common_name}</h2>
+            <p>{selectedTree.species ?? 'Scientific name not recorded'}</p>
+            <Link to={`/trees/${selectedTree.id}`}>View Tree details <Icon name="forward" size={18} /></Link>
+          </div>
+        </article>
+      ) : (
+        <div className="tree-map__nearby-list">
+          {mappableTrees.slice(0, 3).map((tree) => (
+            <button key={tree.id} type="button" onClick={() => onSelect(tree.id)}>
+              <Icon name="tree" size={20} />
+              <span><strong>{tree.common_name}</strong><small>{tree.family ?? 'Park Tree'}</small></span>
+              <Icon name="forward" size={18} />
+            </button>
+          ))}
+        </div>
+      )}
+    </>
   );
 }
 
@@ -379,6 +460,7 @@ export default function TreeMap() {
     <main className="tree-map-page" aria-label="WRTI live Tree map">
       <MapLayout
         className="tree-map"
+        mapClassName="tree-map__map-region"
         map={<div ref={mapContainerRef} className="tree-map__canvas" aria-label="Interactive Mapbox map of live Tree locations" />}
         topOverlay={(
           <div className="tree-map__topbar">
@@ -410,6 +492,27 @@ export default function TreeMap() {
               </div>
             ) : null}
           </div>
+        )}
+        sideOverlay={(
+          <aside className="tree-map__desktop-rail" aria-label="Tree discovery information">
+            <header className="tree-map__rail-brand">
+              <span><Icon name="tree" size={17} /> WRTI Wildlife Park</span>
+              <h1>Discovery</h1>
+              <p>Explore species and habitats near you.</p>
+            </header>
+            <div className="tree-map__rail-rule" />
+            <section className="tree-map__rail-section" aria-label={selectedTree ? 'Selected Tree information' : 'Nearby Tree discoveries'}>
+              <TreeDiscoveryContent
+                selectedTree={selectedTree}
+                selectedImage={selectedImage}
+                selectedImageUrl={selectedImageUrl}
+                mappableTrees={mappableTrees}
+                onSelect={selectTree}
+                showHeading={false}
+              />
+            </section>
+            <footer className="tree-map__rail-footer"><Icon name="info" size={16} /> {mappableTrees.length} verified live Tree locations</footer>
+          </aside>
         )}
         controls={(
           <div className="tree-map__controls" aria-label="Map controls">
@@ -463,22 +566,16 @@ export default function TreeMap() {
             contentClassName="tree-map__sheet-content"
             handle={<span className="tree-map__sheet-handle" aria-hidden="true" />}
           >
-            <div className="tree-map__sheet-heading">
-              <div><span>{selectedTree ? 'Selected Tree' : 'Nearby Discoveries'}</span><h1>{selectedTree ? selectedTree.common_name : 'Explore live Tree locations'}</h1></div>
-              <div className="tree-map__sheet-snaps" aria-label="Panel size">
-                {(['collapsed', 'peek', 'half', 'full'] as BottomSheetState[]).map((state) => <button key={state} type="button" aria-label={`Set panel to ${state}`} aria-pressed={sheetState === state} onClick={() => setSheetState(state)} />)}
-              </div>
-            </div>
-            {selectedTree ? (
-              <article className="tree-map__selected-card">
-                {selectedImageUrl ? <img src={selectedImageUrl} alt={selectedImage?.caption ?? `${selectedTree.common_name} in WRTI Wildlife Park`} /> : <div className="tree-map__selected-media-fallback" role="img" aria-label={`Image for ${selectedTree.common_name} is unavailable`}><Icon name="tree" size={28} /></div>}
-                <div><span className="tree-map__family-chip">{selectedTree.family ?? 'Park Tree'}</span><h2>{selectedTree.common_name}</h2><p>{selectedTree.species ?? 'Scientific name not recorded'}</p><Link to={`/trees/${selectedTree.id}`}>View Tree details <Icon name="forward" size={18} /></Link></div>
-              </article>
-            ) : (
-              <div className="tree-map__nearby-list">
-                {mappableTrees.slice(0, 3).map((tree) => <button key={tree.id} type="button" onClick={() => selectTree(tree.id)}><Icon name="tree" size={20} /><span><strong>{tree.common_name}</strong><small>{tree.family ?? 'Park Tree'}</small></span><Icon name="forward" size={18} /></button>)}
-              </div>
-            )}
+            <TreeDiscoveryContent
+              selectedTree={selectedTree}
+              selectedImage={selectedImage}
+              selectedImageUrl={selectedImageUrl}
+              mappableTrees={mappableTrees}
+              onSelect={selectTree}
+              showSheetSnaps
+              sheetState={sheetState}
+              onSheetStateChange={setSheetState}
+            />
           </BottomSheet>
         )}
       />

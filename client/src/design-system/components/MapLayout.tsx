@@ -28,6 +28,8 @@ export interface MapLayoutProps {
   topOverlay?: ReactNode;
   /** Center overlay content (popups, tooltips) */
   centerOverlay?: ReactNode;
+  /** Responsive side overlay content, such as a desktop information rail. */
+  sideOverlay?: ReactNode;
   /** Bottom overlay content (status bars, info panels) */
   bottomOverlay?: ReactNode;
   /** Map controls (zoom, layers, locate) */
@@ -80,6 +82,7 @@ export function MapLayout({
   map,
   topOverlay,
   centerOverlay,
+  sideOverlay,
   bottomOverlay,
   controls,
   fab,
@@ -133,6 +136,13 @@ export function MapLayout({
           <div className="pointer-events-auto">
             {centerOverlay}
           </div>
+        </div>
+      )}
+
+      {/* Side Overlay — source-specific responsive rail surface. */}
+      {sideOverlay && (
+        <div className="absolute inset-0 z-30 pointer-events-none">
+          <div className="pointer-events-auto">{sideOverlay}</div>
         </div>
       )}
 
