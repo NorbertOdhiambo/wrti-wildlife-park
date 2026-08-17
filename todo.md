@@ -135,3 +135,12 @@
 - [x] Connect every displayed live Tree card to its existing dynamic detail route and preserve the centralized default shell unless the Stitch source explicitly requires an exception.
 - [x] Validate real data behaviour, image robustness, keyboard accessibility, reduced motion, mobile/desktop fidelity, TypeScript, tests, and production build.
 - [x] Document verified data mappings and limitations, update this checklist, save a checkpoint, and report the completed work.
+
+## All Trees Directory Grid/List Toggle
+
+- [x] Review the complete toggle requirements and current All Trees Directory implementation without changing the existing Tree data boundary.
+- [x] Add a local default-grid presentation state and an accessible Grid/List segmented control in the existing directory control area.
+- [x] Add a responsive list-row presentation that uses the same rendered Tree records, media-resolution logic, metadata, and dynamic detail links as the existing grid.
+- [x] Preserve active search, Family/Species filters, pagination page, total count, and Tree results while switching presentation modes.
+- [x] Validate Grid/List state changes, multiple live Tree-detail links, keyboard interactions, mobile/tablet/desktop layouts, reduced motion, TypeScript, tests, and production build.
+- [x] Document the focused enhancement, update this checklist, save a checkpoint, and deliver the result.

@@ -24,10 +24,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import './AllTreesDirectory.css';
 
 const PAGE_SIZE = 12;
 const FILTER_ALL_VALUE = '__all__';
+type ViewMode = 'grid' | 'list';
 
 function formatTreeValue(value: string | null, fallback: string): string {
   return value?.trim() || fallback;
@@ -65,12 +67,14 @@ function DirectoryCard({
   imageUrl,
   imageFailed,
   onImageError,
+  viewMode,
 }: {
   tree: Tree;
   image: TreeImage | undefined;
   imageUrl: string | undefined;
   imageFailed: boolean;
   onImageError: (treeId: number) => void;
+  viewMode: ViewMode;
 }) {
   const commonName = formatTreeValue(tree.common_name, 'Unnamed tree');
   const species = formatTreeValue(tree.species, 'Scientific name not recorded');
@@ -78,7 +82,7 @@ function DirectoryCard({
   const showImage = Boolean(imageUrl && !imageFailed);
 
   return (
-    <article className="all-trees-directory__card">
+    <article className={`all-trees-directory__card all-trees-directory__card--${viewMode}`} role={viewMode === 'list' ? 'listitem' : undefined}>
       <Link className="all-trees-directory__card-link" to={`/trees/${tree.id}`} aria-label={`View details for ${commonName}`}>
         <div className="all-trees-directory__card-image-wrap">
           {showImage ? (
@@ -106,9 +110,9 @@ function DirectoryCard({
   );
 }
 
-function TreeCardSkeleton() {
+function TreeCardSkeleton({ viewMode }: { viewMode: ViewMode }) {
   return (
-    <article className="all-trees-directory__card all-trees-directory__card--skeleton" aria-hidden="true">
+    <article className={`all-trees-directory__card all-trees-directory__card--${viewMode} all-trees-directory__card--skeleton`} aria-hidden="true">
       <div className="all-trees-directory__skeleton-image" />
       <div className="all-trees-directory__skeleton-copy"><span /><span /><span /></div>
     </article>
@@ -146,6 +150,7 @@ export default function AllTreesDirectory() {
   const [species, setSpecies] = useState<string | undefined>();
   const [page, setPage] = useState(1);
   const [brokenImageIds, setBrokenImageIds] = useState<Set<number>>(new Set());
+  const [viewMode, setViewMode] = useState<ViewMode>('grid');
 
   useEffect(() => {
     const timeout = window.setTimeout(() => setSearch(searchInput.trim() || undefined), 280);
@@ -187,6 +192,9 @@ export default function AllTreesDirectory() {
     setSpecies(undefined);
   };
   const handleImageError = (treeId: number) => setBrokenImageIds((current) => new Set(current).add(treeId));
+  const updateViewMode = (nextViewMode: string) => {
+    if (nextViewMode === 'grid' || nextViewMode === 'list') setViewMode(nextViewMode);
+  };
 
   const resultLabel = pagination ? `${pagination.totalItems} ${pagination.totalItems === 1 ? 'Tree' : 'Trees'}` : 'Trees';
 
@@ -213,7 +221,22 @@ export default function AllTreesDirectory() {
             <span aria-hidden="true"><Icon name="leaf" size={18} /></span>
             <span>{resultLabel}</span>
           </div>
-          <span className="all-trees-directory__grid-indicator" role="img" aria-label="Grid view"><Icon name="view" size={22} /></span>
+          <ToggleGroup
+            type="single"
+            value={viewMode}
+            onValueChange={updateViewMode}
+            aria-label="Tree collection view"
+            className="all-trees-directory__view-toggle"
+          >
+            <ToggleGroupItem value="grid" className="all-trees-directory__view-toggle-item" aria-label="Grid view">
+              <span aria-hidden="true"><Icon name="grid_view" size={19} /></span>
+              <span>Grid</span>
+            </ToggleGroupItem>
+            <ToggleGroupItem value="list" className="all-trees-directory__view-toggle-item" aria-label="List view">
+              <span aria-hidden="true"><Icon name="format_list_bulleted" size={20} /></span>
+              <span>List</span>
+            </ToggleGroupItem>
+          </ToggleGroup>
         </div>
         <div className="all-trees-directory__filter-row" aria-label="Tree filters">
           <button className={`all-trees-directory__filter-chip ${!hasActiveCriteria ? 'all-trees-directory__filter-chip--active' : ''}`} type="button" onClick={clearCriteria}>All Trees</button>
@@ -224,7 +247,7 @@ export default function AllTreesDirectory() {
 
       <section className="all-trees-directory__collection" aria-labelledby="all-trees-results-title" aria-busy={treesQuery.isPending}>
         <h2 id="all-trees-results-title" className="sr-only">Trees in the collection</h2>
-        {treesQuery.isPending && <div className="all-trees-directory__grid" aria-label="Loading tree records">{Array.from({ length: 8 }, (_, index) => <TreeCardSkeleton key={index} />)}</div>}
+        {treesQuery.isPending && <div className={`all-trees-directory__${viewMode}`} aria-label="Loading tree records" role={viewMode === 'list' ? 'list' : undefined}>{Array.from({ length: 8 }, (_, index) => <TreeCardSkeleton key={index} viewMode={viewMode} />)}</div>}
 
         {treesQuery.isError && (
           <div className="all-trees-directory__state" role="alert">
@@ -246,7 +269,7 @@ export default function AllTreesDirectory() {
 
         {!treesQuery.isPending && !treesQuery.isError && trees.length > 0 && (
           <>
-            <div className="all-trees-directory__grid">
+            <div className={`all-trees-directory__${viewMode}`} role={viewMode === 'list' ? 'list' : undefined}>
               {trees.map((tree) => (
                 <DirectoryCard
                   key={tree.id}
@@ -255,6 +278,7 @@ export default function AllTreesDirectory() {
                   imageUrl={imageUrls[tree.id]}
                   imageFailed={brokenImageIds.has(tree.id)}
                   onImageError={handleImageError}
+                  viewMode={viewMode}
                 />
               ))}
             </div>
