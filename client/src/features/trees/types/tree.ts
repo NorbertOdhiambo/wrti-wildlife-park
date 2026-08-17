@@ -35,6 +35,12 @@ export interface TreeImage {
   updated_at: string;
 }
 
+/** Data-derived taxonomy choices for collection filtering. */
+export interface TreeTaxonomyFacets {
+  families: string[];
+  species: string[];
+}
+
 export interface TreeAudio {
   id: string;
   tree_id: number;
@@ -67,6 +73,8 @@ export interface TreeListInput {
   page?: number;
   itemsPerPage?: number;
   search?: string;
+  family?: string;
+  species?: string;
 }
 
 export interface PaginatedTreeResult {

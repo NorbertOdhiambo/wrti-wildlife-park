@@ -15,6 +15,7 @@ import type {
   TreeAudio,
   TreeImage,
   TreeListInput,
+  TreeTaxonomyFacets,
 } from '../types/tree';
 
 export const treeQueryKeys = {
@@ -22,6 +23,8 @@ export const treeQueryKeys = {
   list: (input?: TreeListInput) => ['trees', 'list', input ?? {}] as const,
   detail: (treeId: number) => ['trees', treeId] as const,
   images: (treeId: number) => ['trees', treeId, 'images'] as const,
+  primaryImages: (treeIds: readonly number[]) => ['trees', 'primary-images', treeIds] as const,
+  taxonomyFacets: () => ['trees', 'taxonomy-facets'] as const,
   audio: (treeId: number) => ['trees', treeId, 'audio'] as const,
 };
 
@@ -72,6 +75,33 @@ export function useTreeImages(
     queryFn: () => treeRepository.getTreeImages(treeId),
     enabled: shouldEnableTreeQuery(options) && Number.isInteger(treeId) && treeId > 0,
     staleTime: 60_000,
+    retry: 1,
+  });
+}
+
+/** Collection-aware primary media query; avoids one tree_images request per card. */
+export function useTreePrimaryImages(
+  treeIds: readonly number[],
+  options?: TreeQueryOptions
+): UseQueryResult<Record<number, TreeImage>, Error> {
+  return useQuery({
+    queryKey: treeQueryKeys.primaryImages(treeIds),
+    queryFn: () => treeRepository.getPrimaryTreeImages(treeIds),
+    enabled: shouldEnableTreeQuery(options) && treeIds.length > 0,
+    staleTime: 60_000,
+    retry: 1,
+  });
+}
+
+/** Live, data-derived taxonomy options used by the All Trees Directory filters. */
+export function useTreeTaxonomyFacets(
+  options?: TreeQueryOptions
+): UseQueryResult<TreeTaxonomyFacets, Error> {
+  return useQuery({
+    queryKey: treeQueryKeys.taxonomyFacets(),
+    queryFn: () => treeRepository.getTreeTaxonomyFacets(),
+    enabled: shouldEnableTreeQuery(options),
+    staleTime: 300_000,
     retry: 1,
   });
 }

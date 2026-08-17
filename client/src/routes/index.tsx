@@ -31,6 +31,7 @@ import SettingsPreferences from '@/pages/SettingsPreferences';
 import OfflineDownloads from '@/pages/OfflineDownloads';
 import DiscoveryJournal from '@/pages/DiscoveryJournal';
 import TreeDetail from '@/pages/TreeDetail';
+import AllTreesDirectory from '@/pages/AllTreesDirectory';
 
 // Placeholder page components (to be implemented in future phases)
 const MapPage = () => <div>Map Page - Coming Soon</div>;
@@ -73,6 +74,13 @@ export const routes: RouteObject[] = [
         // The Stitch Tree Detail source explicitly specifies local translucent task
         // chrome and no Bottom Navigation, so this is an intentional shell exception.
         handle: { shell: { header: 'hidden', bottomNavigation: 'hidden' } } satisfies WRTIRouteHandle,
+      },
+      {
+        path: 'trees',
+        element: <AllTreesDirectory />,
+        // The directory retains the shared visitor shell. It belongs to the
+        // existing discovery grouping rather than adding a new nav architecture.
+        handle: { shell: { activeNav: 'discovery' } } satisfies WRTIRouteHandle,
       },
       {
         path: 'tickets',

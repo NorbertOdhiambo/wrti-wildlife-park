@@ -125,3 +125,13 @@
 - [x] Add TanStack Query hooks and query keys that keep server state outside Zustand and Supabase details out of components.
 - [x] Add focused configuration and contract-boundary tests; validate TypeScript, build, and unchanged visual routes while deferring real anonymous access validation.
 - [x] Document the reusable data layer, update the checklist, and save a checkpoint.
+
+## All Trees Directory
+
+- [x] Inspect the full All Trees Directory requirements, Stitch export, and existing Tree repository, query hooks, Tree cards, and media-resolution behavior.
+- [x] Audit existing support for real pagination, search, filters, sorting, Tree image retrieval, and card reuse; define only the smallest necessary extension.
+- [x] Implement the dynamic All Trees Directory route using the established live Supabase Tree boundary with no hardcoded catalogue records or totals.
+- [x] Reproduce source-defined responsive search, filters, sorting, pagination, loading, empty, missing-image, and card interactions using live Tree data.
+- [x] Connect every displayed live Tree card to its existing dynamic detail route and preserve the centralized default shell unless the Stitch source explicitly requires an exception.
+- [x] Validate real data behaviour, image robustness, keyboard accessibility, reduced motion, mobile/desktop fidelity, TypeScript, tests, and production build.
+- [x] Document verified data mappings and limitations, update this checklist, save a checkpoint, and report the completed work.
