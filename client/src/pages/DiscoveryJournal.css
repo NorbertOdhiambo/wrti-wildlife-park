@@ -19,7 +19,11 @@
 .discovery-journal__collection-heading p, .discovery-journal__refreshing { margin: 5px 0 0; color: #3e4a3d; font-size: 13px; font-weight: 600; }
 .discovery-journal__refreshing { color: #006b2c; }
 .discovery-journal__grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-.discovery-journal__tree-card { position: relative; display: flex; gap: 14px; min-height: 146px; padding: 18px; overflow: hidden; border: 1px solid rgba(189, 202, 186, 0.7); border-radius: 14px; background: #ffffff; box-shadow: 0 3px 10px rgba(19, 29, 31, 0.05); }
+.discovery-journal__tree-card { position: relative; min-height: 146px; overflow: hidden; border: 1px solid rgba(189, 202, 186, 0.7); border-radius: 14px; background: #ffffff; box-shadow: 0 3px 10px rgba(19, 29, 31, 0.05); }
+.discovery-journal__tree-link { position: relative; display: flex; min-height: 144px; gap: 14px; padding: 18px; color: inherit; text-decoration: none; transition: background-color 180ms cubic-bezier(0.23, 1, 0.32, 1), transform 160ms cubic-bezier(0.23, 1, 0.32, 1); }
+.discovery-journal__tree-link:hover { background: #f7fbfc; }
+.discovery-journal__tree-link:active { transform: scale(0.985); }
+.discovery-journal__tree-link:focus-visible { outline: 3px solid #006b2c; outline-offset: -3px; }
 .discovery-journal__tree-icon { display: flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: #e2f7e8; color: #006b2c; }
 .discovery-journal__tree-copy { min-width: 0; }
 .discovery-journal__tree-copy h2 { margin: 0; font-size: 21px; line-height: 1.18; }

@@ -90,6 +90,13 @@
 
 ## Supabase Integration & Typed Data Layer
 
+- [x] Read the complete Dynamic Tree Detail requirements and inspect the Stitch export, current routes, repository operations, Tree contracts, and verified live media behavior.
+- [x] Extract exact Stitch layout, copy, dynamic-field mappings, responsive rules, media states, and interaction contract.
+- [x] Map only verified Tree, image, and audio fields to an explicit detail view model with safe fallbacks for missing optional fields.
+- [x] Implement a dynamic `/trees/:treeId` route using existing Supabase repository and TanStack Query hooks without duplicating backend logic.
+- [x] Preserve the centralized shell and connect only source-defined navigation and media interactions without adding Mapbox, payments, writes, or security changes.
+- [x] Validate a real Tree record, invalid/loading/error/media-empty states, mobile/desktop fidelity, accessibility, reduced motion, tests, TypeScript, and production build.
+- [x] Document verified field mappings, remaining limitations, update the checklist, and save a checkpoint.
 - [x] Inspect the existing live Supabase client, repository, Tree types, query hooks, Discovery route, tests, and verification artifacts without code changes.
 - [x] Re-run credential-safe read-only verification for runtime variable presence, Tree list/detail/image/audio reads, pagination, and anonymous access behavior.
 - [x] Audit remaining Tree mock/static data and regression-check Landing, shared shell, routing, tests, and production build without modifying code.

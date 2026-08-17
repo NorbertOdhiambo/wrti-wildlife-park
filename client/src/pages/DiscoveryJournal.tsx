@@ -7,6 +7,7 @@
  */
 
 import { type FormEvent, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Icon } from '@/design-system/icons';
 import { useTrees } from '@/features/trees';
 import type { Tree } from '@/features/trees';
@@ -19,20 +20,22 @@ function TreeCard({ tree }: { tree: Tree }) {
 
   return (
     <article className="discovery-journal__tree-card">
-      <div className="discovery-journal__tree-icon" aria-hidden="true">
-        <Icon name="eco" size={28} />
-      </div>
-      <div className="discovery-journal__tree-copy">
-        <h2>{tree.common_name}</h2>
-        {taxonomy && <p className="discovery-journal__taxonomy">{taxonomy}</p>}
-        <p>{tree.description ?? 'No description has been recorded for this tree yet.'}</p>
-      </div>
-      {(tree.lat !== null && tree.lng !== null) && (
-        <span className="discovery-journal__location-indicator" title="Location data available">
-          <Icon name="location_on" size={18} />
-          <span className="sr-only">Location data available</span>
-        </span>
-      )}
+      <Link className="discovery-journal__tree-link" to={`/trees/${tree.id}`} aria-label={`View details for ${tree.common_name}`}>
+        <div className="discovery-journal__tree-icon" aria-hidden="true">
+          <Icon name="eco" size={28} />
+        </div>
+        <div className="discovery-journal__tree-copy">
+          <h2>{tree.common_name}</h2>
+          {taxonomy && <p className="discovery-journal__taxonomy">{taxonomy}</p>}
+          <p>{tree.description ?? 'No description has been recorded for this tree yet.'}</p>
+        </div>
+        {(tree.lat !== null && tree.lng !== null) && (
+          <span className="discovery-journal__location-indicator" title="Location data available">
+            <Icon name="location_on" size={18} />
+            <span className="sr-only">Location data available</span>
+          </span>
+        )}
+      </Link>
     </article>
   );
 }

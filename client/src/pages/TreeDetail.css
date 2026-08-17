@@ -1,0 +1,153 @@
+/*
+ * WRTI Tree Detail — source-specific visual contract.
+ * Keep the Stitch tree-detail hierarchy intact: translucent 64px task header,
+ * 530px mobile hero, forest-green actions, precise tactile cards, and no shared
+ * bottom navigation. Do not generalize these selectors into global styles.
+ */
+
+.tree-detail {
+  --td-bg: #f0fbfe;
+  --td-surface-low: #ebf6f8;
+  --td-surface: #ffffff;
+  --td-surface-container: #e5f0f2;
+  --td-surface-high: #dfeaed;
+  --td-surface-variant: #d9e4e7;
+  --td-primary: #006b2c;
+  --td-secondary: #1a6c3b;
+  --td-secondary-container: #a4f5b6;
+  --td-text: #131d1f;
+  --td-muted: #3e4a3d;
+  --td-outline: #bdcaba;
+  --td-error: #ba1a1a;
+  --td-error-container: #ffdad6;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--td-bg);
+  color: var(--td-text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  padding-bottom: 128px;
+}
+
+.tree-detail__task-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  align-items: center;
+  height: 64px;
+  padding: 0 20px;
+  border-bottom: 1px solid rgb(189 202 186 / 30%);
+  background: rgb(240 251 254 / 80%);
+  box-shadow: 0 1px 3px rgb(19 29 31 / 12%);
+  backdrop-filter: blur(12px);
+}
+
+.tree-detail__park-name {
+  overflow: hidden;
+  color: var(--td-primary);
+  font-family: 'Libre Caslon Text', serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 36px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tree-detail__header-button {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--td-primary);
+  cursor: pointer;
+  transition: background-color 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1);
+}
+
+.tree-detail__header-button:hover { background: rgb(223 234 237 / 80%); }
+.tree-detail__header-button:active { transform: scale(.95); }
+.tree-detail__header-button:focus-visible,
+.tree-detail__play-button:focus-visible,
+.tree-detail__actions button:focus-visible,
+.tree-detail__state button:focus-visible,
+.tree-detail__audio-seek:focus-visible { outline: 3px solid var(--td-primary); outline-offset: 3px; }
+
+.tree-detail__hero {
+  position: relative;
+  height: 530px;
+  margin-top: -64px;
+  overflow: hidden;
+}
+
+.tree-detail__hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tree-detail__hero-image--fallback { background: radial-gradient(circle at 48% 12%, rgb(164 245 182 / 55%), transparent 27%), linear-gradient(145deg, #173e2a 0%, #48704d 44%, #1f4a35 100%); }
+.tree-detail__hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, var(--td-bg) 0%, rgb(240 251 254 / 52%) 36%, transparent 74%); }
+
+.tree-detail__hero-copy {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  padding: 20px;
+}
+
+.tree-detail__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.tree-detail__chips span { border-radius: 999px; background: rgb(26 108 59 / 10%); color: var(--td-muted); padding: 4px 12px; font-size: 14px; font-weight: 600; letter-spacing: .05em; line-height: 20px; }
+.tree-detail__chips span + span { background: var(--td-surface-variant); }
+.tree-detail__hero h1 { margin: 0 0 4px; color: var(--td-text); font-family: 'Libre Caslon Text', serif; font-size: clamp(38px, 10vw, 48px); font-weight: 700; letter-spacing: -.02em; line-height: 1.1; text-shadow: 0 1px 3px rgb(255 255 255 / 35%); }
+.tree-detail__hero-copy > p { margin: 0; color: var(--td-secondary); font-family: 'Libre Caslon Text', serif; font-size: 28px; font-style: italic; font-weight: 600; line-height: 36px; text-shadow: 0 1px 2px rgb(255 255 255 / 35%); }
+
+.tree-detail__content { display: flex; width: min(100%, 1024px); flex-direction: column; gap: 32px; margin: 0 auto; padding: 16px 20px 0; }
+.tree-detail__narrative-audio { display: grid; gap: 16px; }
+.tree-detail__story { display: flex; flex-direction: column; gap: 16px; }
+.tree-detail__story h2,
+.tree-detail__botanical-card h2,
+.tree-detail__related h2 { margin: 0; color: var(--td-text); font-family: 'Libre Caslon Text', serif; font-size: 24px; font-weight: 600; line-height: 32px; }
+.tree-detail__story p { margin: 0; color: var(--td-muted); font-size: 18px; line-height: 28px; }
+
+.tree-detail__audio-card { display: flex; min-height: 128px; flex-direction: column; gap: 16px; border: 1px solid rgb(189 202 186 / 20%); border-radius: 12px; background: rgb(235 246 248 / 80%); padding: 16px; box-shadow: 0 4px 12px rgb(19 29 31 / 10%); backdrop-filter: blur(12px); }
+.tree-detail__audio-meta { display: flex; align-items: center; justify-content: space-between; color: var(--td-muted); font-size: 14px; font-weight: 600; letter-spacing: .05em; line-height: 20px; }
+.tree-detail__audio-meta span:last-child { color: var(--td-secondary); font-size: 12px; font-weight: 500; letter-spacing: 0; line-height: 16px; }
+.tree-detail__audio-controls { display: flex; align-items: center; gap: 16px; }
+.tree-detail__play-button { display: inline-flex; width: 40px; height: 40px; flex: 0 0 auto; align-items: center; justify-content: center; border: 0; border-radius: 999px; background: var(--td-primary); color: #fff; box-shadow: 0 4px 10px rgb(0 107 44 / 24%); cursor: pointer; transition: transform 160ms cubic-bezier(.23, 1, .32, 1), background-color 160ms cubic-bezier(.23, 1, .32, 1); }
+.tree-detail__play-button:hover { background: #005320; }
+.tree-detail__play-button:active { transform: scale(.95); }
+.tree-detail__waveform-wrap { position: relative; min-width: 0; flex: 1; }
+.tree-detail__waveform { display: flex; height: 24px; align-items: center; gap: 4px; }
+.tree-detail__waveform span { display: block; width: 4px; flex: 0 0 4px; border-radius: 999px; background: var(--td-primary); }
+.tree-detail__waveform span:nth-child(1) { opacity: .4; }.tree-detail__waveform span:nth-child(2) { opacity: .6; }.tree-detail__waveform span:nth-child(3) { opacity: .8; }.tree-detail__waveform span:nth-child(5) { opacity: .6; }.tree-detail__waveform span:nth-child(6) { opacity: .3; }
+.tree-detail__waveform i { display: block; height: 4px; min-width: 0; flex: 1; border-radius: 999px; background: var(--td-surface-variant); }
+.tree-detail__audio-seek { position: absolute; inset: 0; width: 100%; margin: 0; cursor: pointer; opacity: 0; }
+.tree-detail__audio-seek:disabled { cursor: default; }
+.tree-detail__audio-unavailable { margin: auto 0 0; color: var(--td-muted); font-size: 14px; line-height: 20px; }
+
+.tree-detail__knowledge-grid { display: grid; gap: 16px; }
+.tree-detail__botanical-card { border: 1px solid rgb(189 202 186 / 30%); border-radius: 12px; background: var(--td-surface); padding: 16px; box-shadow: 0 2px 6px rgb(19 29 31 / 8%); }
+.tree-detail__botanical-card h2 { margin-bottom: 16px; }
+.tree-detail__botanical-card dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0; }
+.tree-detail__botanical-card dl div { min-width: 0; }.tree-detail__botanical-card dt { margin-bottom: 4px; color: var(--td-muted); font-size: 12px; font-weight: 500; line-height: 16px; }.tree-detail__botanical-card dd { margin: 0; color: var(--td-text); font-size: 16px; font-weight: 600; line-height: 24px; overflow-wrap: anywhere; }
+.tree-detail__right-rail { display: flex; flex-direction: column; gap: 16px; }
+.tree-detail__conservation-card { display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid rgb(186 26 26 / 20%); border-radius: 12px; background: rgb(255 218 214 / 20%); padding: 16px; box-shadow: 0 2px 6px rgb(19 29 31 / 8%); }.tree-detail__conservation-main { display: flex; min-width: 0; align-items: center; gap: 12px; }.tree-detail__warning-icon { display: inline-flex; width: 40px; height: 40px; flex: 0 0 auto; align-items: center; justify-content: center; border-radius: 999px; background: rgb(186 26 26 / 10%); color: var(--td-error); }.tree-detail__conservation-main p { margin: 0; color: var(--td-error); font-size: 12px; font-weight: 500; line-height: 16px; }.tree-detail__conservation-main strong { color: #51201b; font-size: 18px; line-height: 28px; }.tree-detail__unavailable-link { color: var(--td-muted); font-size: 12px; font-weight: 600; line-height: 16px; text-align: right; }
+.tree-detail__insight-card { position: relative; overflow: hidden; border: 1px solid rgb(26 108 59 / 20%); border-radius: 12px; background: rgb(164 245 182 / 30%); padding: 16px; box-shadow: 0 2px 6px rgb(19 29 31 / 8%); }.tree-detail__insight-decoration { position: absolute; top: 0; right: 0; padding: 8px; color: var(--td-secondary); opacity: .1; }.tree-detail__insight-card h2 { position: relative; z-index: 1; display: flex; align-items: center; gap: 8px; margin: 0 0 8px; color: var(--td-secondary); font-size: 14px; font-weight: 600; letter-spacing: .05em; line-height: 20px; }.tree-detail__insight-card p { position: relative; z-index: 1; margin: 0; color: #227240; font-size: 16px; line-height: 24px; }
+
+.tree-detail__actions { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }.tree-detail__actions button { display: inline-flex; min-height: 56px; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--td-primary); border-radius: 16px; background: var(--td-primary); color: #fff; font-family: inherit; font-size: 14px; font-weight: 600; letter-spacing: .05em; line-height: 20px; box-shadow: 0 4px 10px rgb(0 107 44 / 16%); cursor: pointer; transition: transform 160ms cubic-bezier(.23, 1, .32, 1), background-color 160ms cubic-bezier(.23, 1, .32, 1); }.tree-detail__actions button + button { background: var(--td-surface-low); border-color: rgb(189 202 186 / 50%); color: var(--td-primary); box-shadow: 0 2px 6px rgb(19 29 31 / 8%); }.tree-detail__actions button:not(:disabled):hover { background: #005320; }.tree-detail__actions button + button:not(:disabled):hover { background: var(--td-surface-high); }.tree-detail__actions button:not(:disabled):active { transform: scale(.98); }.tree-detail__actions button:disabled { cursor: not-allowed; opacity: .5; }.tree-detail__actions p { margin: -6px 0 0; color: var(--td-muted); font-size: 12px; line-height: 16px; text-align: center; }
+
+.tree-detail__related { padding-top: 16px; }.tree-detail__related h2 { margin-bottom: 16px; }.tree-detail__related-empty { display: flex; min-height: 96px; align-items: center; gap: 12px; border: 1px solid rgb(189 202 186 / 30%); border-radius: 12px; background: var(--td-surface); padding: 16px; color: var(--td-muted); box-shadow: 0 2px 6px rgb(19 29 31 / 8%); }.tree-detail__related-empty p { margin: 0; font-size: 14px; line-height: 20px; }
+
+.tree-detail--loading { padding: 0 0 128px; }.tree-detail__loading-hero { height: 530px; background: linear-gradient(110deg, #dfeaed 20%, #eff8fa 38%, #dfeaed 56%); background-size: 200% 100%; animation: tree-detail-shimmer 1.2s linear infinite; }.tree-detail__loading-content { display: grid; gap: 16px; padding: 32px 20px; }.tree-detail__loading-content span { height: 24px; border-radius: 8px; background: #dfeaed; animation: tree-detail-shimmer 1.2s linear infinite; }.tree-detail__loading-content span:nth-child(2) { width: 90%; }.tree-detail__loading-content span:nth-child(3) { height: 132px; margin-top: 16px; }.tree-detail__loading-content span:nth-child(4) { height: 112px; }
+.tree-detail__state-page { display: grid; min-height: 100vh; place-items: center; padding: 24px; background: var(--td-bg); }.tree-detail__state { width: min(100%, 440px); border: 1px solid rgb(189 202 186 / 30%); border-radius: 16px; background: var(--td-surface); padding: 32px 24px; box-shadow: 0 8px 24px rgb(19 29 31 / 10%); text-align: center; }.tree-detail__state-icon { display: inline-flex; align-items: center; justify-content: center; color: var(--td-primary); }.tree-detail__state h1 { margin: 16px 0 8px; font-family: 'Libre Caslon Text', serif; font-size: 28px; line-height: 36px; }.tree-detail__state p { margin: 0; color: var(--td-muted); line-height: 24px; }.tree-detail__state button { margin-top: 24px; border: 0; border-radius: 12px; background: var(--td-primary); color: #fff; padding: 12px 18px; font: 600 14px/20px 'Plus Jakarta Sans', sans-serif; cursor: pointer; }
+
+@keyframes tree-detail-shimmer { to { background-position: -200% 0; } }
+
+@media (min-width: 640px) { .tree-detail__actions { flex-direction: row; }.tree-detail__actions button { flex: 1; }.tree-detail__actions p { flex-basis: 100%; } }
+
+@media (min-width: 768px) { .tree-detail__park-name { font-size: 24px; line-height: 32px; }.tree-detail__hero { height: 618px; }.tree-detail__hero-copy { padding: 0 64px 32px; }.tree-detail__content { padding: 16px 64px 0; }.tree-detail__narrative-audio { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; }.tree-detail__story { grid-column: span 8 / span 8; }.tree-detail__audio-card { grid-column: span 4 / span 4; align-self: start; }.tree-detail__knowledge-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.tree-detail__botanical-card { height: 100%; } }
+
+@media (prefers-reduced-motion: reduce) { .tree-detail *, .tree-detail *::before, .tree-detail *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
